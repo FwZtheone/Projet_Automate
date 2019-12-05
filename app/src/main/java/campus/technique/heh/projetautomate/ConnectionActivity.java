@@ -3,6 +3,7 @@ package campus.technique.heh.projetautomate;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -34,19 +35,26 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
             case R.id.button_connection:
                 EditText email = (EditText) findViewById(R.id.edit_email) ;
                 EditText password = (EditText) findViewById(R.id.edit_passwd);
+
                 DatabaseHelper myDb = new DatabaseHelper(this);
                 Cursor res =  myDb.getData("status");
+
                 res.moveToFirst();
-                String mail  = res.getString(res.getColumnIndex("EMAIL"));
-                if(res.getString(res.getColumnIndex("EMAIL")) == email.getText().toString() &&   res.getString(res.getColumnIndex("PASSWORD")) == password.getText().toString()      )
+                String mail_db  = res.getString(res.getColumnIndex("EMAIL"));
+                String passwd_db = res.getString(res.getColumnIndex("PASSWORD"));
+                String e = email.getText().toString().toLowerCase();
+                String p = password.getText().toString().toLowerCase();
+                if(e.equals(mail_db) && p.equals(passwd_db))
                 {
-                    Toast.makeText(getApplicationContext(), "bon login " + email.getText().toString() + " " + password.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),mail , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "bienvenu superAdmin" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, BoardSuperAdActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "mauvais login "+ email.getText().toString() + " " + password.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),mail , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "mauvais login/password" , Toast.LENGTH_SHORT).show();
+
 
                 }
 
