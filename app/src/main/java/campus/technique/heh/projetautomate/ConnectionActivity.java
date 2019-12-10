@@ -62,6 +62,9 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
                     res.close();
                 }
 
+            case R.id.button_newUser:
+                Intent intent = new Intent(this,InscriptionActivity.class);
+                startActivity(intent);
 
 
 
