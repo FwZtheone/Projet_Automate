@@ -53,8 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-
-    //affichage de la DB
+    //affichage de l'emsemble des users
     public ArrayList<String> getAllContacts(){
         ArrayList<String> array_list = new ArrayList<String>();
         SQLiteDatabase db =this.getReadableDatabase();
@@ -62,6 +61,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.moveToFirst();
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex(COL_STATUS)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+    //on affiche un certain type de user !
+    public ArrayList<String> getAllContacts(String information){
+        ArrayList<String> array_list = new ArrayList<String>();
+        SQLiteDatabase db =this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from Database_user",null);
+        res.moveToFirst();
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(COL_EMAIL)));
             res.moveToNext();
         }
         return array_list;

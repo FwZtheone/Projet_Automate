@@ -2,16 +2,19 @@ package campus.technique.heh.projetautomate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +24,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
     private static Pattern pattern;
     private static Matcher matcher;
+    public boolean c = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,24 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
+    //vérification de l'adresse mail si elle est déjà dans la DB
+
+    public boolean ifExistEmail(String email){
+
+        DatabaseHelper mydb = new DatabaseHelper(this);
+
+
+        ArrayList<String> tableau_email = mydb.getAllContacts("email");
+
+         boolean reponse = tableau_email.contains(email);
+
+        return reponse;
+
+
+    }
+
+
+
     public void onClickInscription(View v){
         switch (v.getId()){
             case R.id.valider:
@@ -102,14 +124,23 @@ public class InscriptionActivity extends AppCompatActivity {
                 if(!edit_text_login_string.isEmpty() && !edit_text_email_string.isEmpty() && !edit_text_password_string.isEmpty())
                 {
                     if(isValidEmail(edit_text_email_string) && isValidPassword(edit_text_password_string)){
-                        Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
 
+                        if(!ifExistEmail(edit_text_email_string)){
+
+                        Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
                         DatabaseHelper mydb = new DatabaseHelper(this);
                         try{
                             mydb.insertContact(edit_text_login_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"BASIC" );
+                            finish();
+                            Intent connection  = new Intent(this,ConnectionActivity.class);
+                            startActivity(connection);
                         }
                         catch (NoSuchAlgorithmException e) {
                             Toast.makeText(this, "error insert db !!", Toast.LENGTH_SHORT).show();
+                        }
+                        }
+                        else{
+                            Toast.makeText(this, "email déjà utilisé !", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -120,6 +151,7 @@ public class InscriptionActivity extends AppCompatActivity {
                     }
                 }
                 else {
+
                     Toast.makeText(this, " un ou plusieurs champs est vide(s) !", Toast.LENGTH_SHORT).show();
                 }
 
