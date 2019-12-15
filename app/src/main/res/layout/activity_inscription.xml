@@ -31,6 +31,7 @@
         android:background="@drawable/arrondi_edittext"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:maxLines="1"
         />
 
 
@@ -46,8 +47,23 @@
         android:background="@drawable/arrondi_edittext"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+           android:maxLines="1"
         />
 
+    <EditText
+        android:id="@+id/edit_password2_inscription"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"
+        android:hint="Password"
+        android:background="@drawable/arrondi_edittext"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        />
     <EditText
         android:id="@+id/edit_password_inscription"
         android:layout_width="match_parent"
@@ -60,6 +76,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:inputType="textPassword"
+        android:maxLines="1"
         />
 
 

@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_PASSWORD = "PASSWORD";
     private static final String COL_EMAIL = "EMAIL";
     private static final String COL_STATUS = "STATUS";
+    private static final String COL_ECRITURE = "ECRITURE";
 
 
 
@@ -33,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,LOGIN text, PASSWORD text, EMAIL text, STATUS text)" );
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,LOGIN text, PASSWORD text, EMAIL text, STATUS text, ECRITURE boolean)" );
 
     }
 
@@ -44,6 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public Cursor getContact(String email,String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM Database_user where EMAIL="+email+"AND PASSWORD="+password+"",null);
+        return res;
+    }
 
     //renvoit une ligne de colonne sleon l'id
     public Cursor getData(String status) {
@@ -79,15 +85,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array_list;
     }
 
+    public ArrayList<String> getPasswordContacts(){
+        ArrayList<String> array_list = new ArrayList<String>();
+        SQLiteDatabase db =this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from Database_user",null);
+        res.moveToFirst();
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(COL_PASSWORD)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+
+
+
 
     //insert contact
-    public boolean insertContact(String LOGIN, String PASSWORD, String EMAIL, String STATUS){
+    public boolean insertContact(String LOGIN, String PASSWORD, String EMAIL, String STATUS, Boolean ECRITURE){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("LOGIN", LOGIN);
         contentValues.put("PASSWORD", PASSWORD);
         contentValues.put("EMAIL", EMAIL);
         contentValues.put("STATUS", STATUS);
+        contentValues.put("ECRITURE", ECRITURE);
         db.insert("Database_user",null,contentValues);
         return true;
 

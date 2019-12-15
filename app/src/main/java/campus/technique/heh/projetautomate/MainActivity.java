@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        myDb = new DatabaseHelper(this);
 
-       myDb.insertContact("SUPERROOT","123","fabrizio","SUPERADMIN");
+       myDb.insertContact("SUPERROOT","123","fabrizio","SUPERADMIN",true);
         ArrayList array_list = myDb.getAllContacts();
 
         if(array_list.size() != 0 )

@@ -115,6 +115,11 @@ public class InscriptionActivity extends AppCompatActivity {
                 //password
                 EditText edit_text_password  = findViewById(R.id.edit_password_inscription);
                 String edit_text_password_string = edit_text_password.getText().toString();
+
+                //password2
+                EditText edit_text_password2 = findViewById(R.id.edit_password2_inscription);
+                String edit_text_password2_string = edit_text_password2.getText().toString();
+
                 //email
                 EditText edit_text_email = findViewById(R.id.edit_email_inscription);
                 String edit_text_email_string = edit_text_email.getText().toString();
@@ -127,26 +132,35 @@ public class InscriptionActivity extends AppCompatActivity {
 
                         if(!ifExistEmail(edit_text_email_string)){
 
-                        Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
-                        DatabaseHelper mydb = new DatabaseHelper(this);
-                        try{
-                            mydb.insertContact(edit_text_login_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"BASIC" );
-                            finish();
-                            Intent connection  = new Intent(this,ConnectionActivity.class);
-                            startActivity(connection);
+                            if(edit_text_password_string.equals(edit_text_password2_string))
+                            {
+                            Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
+                            DatabaseHelper mydb = new DatabaseHelper(this);
+                            try{
+                                mydb.insertContact(edit_text_login_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"BASIC" ,false);
+                                finish();
+                                Intent connection  = new Intent(this,ConnectionActivity.class);
+                                startActivity(connection);
+                            }
+                            catch (NoSuchAlgorithmException e) {
+                                Toast.makeText(this, "error insert db !!", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        catch (NoSuchAlgorithmException e) {
-                            Toast.makeText(this, "error insert db !!", Toast.LENGTH_SHORT).show();
+                            else{
+                                edit_text_password2.setError("les mots de passe ne sont pas les mêmes  !");
+                            }
                         }
-                        }
+
+
+
                         else{
-                            Toast.makeText(this, "email déjà utilisé !", Toast.LENGTH_SHORT).show();
+                            edit_text_email.setError("email déjà utilisé !!! ");
                         }
 
 
                     }
                     else{
-                        Toast.makeText(this, " un ou plusieurs champs ne respectent pas les règles d'inscription !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, " l'email ou le mot de passe ne respectent pas les règles !", Toast.LENGTH_SHORT).show();
 
                     }
                 }
