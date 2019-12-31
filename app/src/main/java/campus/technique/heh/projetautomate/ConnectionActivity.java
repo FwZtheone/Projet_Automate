@@ -39,15 +39,14 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
         DatabaseHelper mydb = new DatabaseHelper(this);
 
         Cursor rs = mydb.getContact(email,password);
-        rs.moveToFirst();
 
-        String email_verif = rs.getString(rs.getColumnIndex("COL_EMAIL"));
-
-
-        if (!rs.isClosed())  {
-            rs.close();
+        if(rs.moveToFirst()){
+            return true;
         }
+
+
         return false;
+        
     }
 
 
@@ -80,8 +79,7 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
                 if(connectionUser(edit_text_email_string, InscriptionActivity.toHexString(InscriptionActivity.getSHA(edit_text_password_string)) ))
                 {
                    Intent intent = new Intent(this,BoardSuperAdActivity.class);
-                   startActivity(intent);
-                   finish();
+                    Toast.makeText(this, edit_text_email_string + " : " + edit_text_password_string, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(this, "login/mot de passe invalide", Toast.LENGTH_SHORT).show();
