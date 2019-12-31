@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ProjetAutomate</string>
     <string name="title_activity_connection">ConnectionActivity</string>
+    <string name="title_user">
+        &lt;u>Compte Utilisateur&lt;/u>
+    </string>
 </resources>

@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BoardSuperAdActivity"></activity>
+        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".BoardSuperAdActivity" />
         <activity android:name=".ConnectionActivity" />
         <activity android:name=".InscriptionActivity" />
         <activity android:name=".MainActivity">

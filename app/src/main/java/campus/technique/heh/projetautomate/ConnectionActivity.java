@@ -38,7 +38,7 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
     public boolean connectionUser(String email,String password){
         DatabaseHelper mydb = new DatabaseHelper(this);
 
-        Cursor rs = mydb.getContact(email,password);
+        Cursor rs = mydb.getContact("*",email,password);
 
         if(rs.moveToFirst()){
             return true;
@@ -78,8 +78,12 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
 
                 if(connectionUser(edit_text_email_string, InscriptionActivity.toHexString(InscriptionActivity.getSHA(edit_text_password_string)) ))
                 {
-                   Intent intent = new Intent(this,BoardSuperAdActivity.class);
-                    Toast.makeText(this, edit_text_email_string + " : " + edit_text_password_string, Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(this,UserActivity.class);
+                   intent.putExtra("user_email",edit_text_email_string);
+                   intent.putExtra("user_password",edit_text_password_string);
+
+                    startActivity(intent);
+                    finish();
                 }
                 else{
                     Toast.makeText(this, "login/mot de passe invalide", Toast.LENGTH_SHORT).show();
