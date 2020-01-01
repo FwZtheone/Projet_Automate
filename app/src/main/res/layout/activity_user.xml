@@ -72,6 +72,60 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <Button
+            android:id="@+id/button_showAutomate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Connexion_S7"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mybutton"
+            android:textColor="#ffff"
+            android:onClick="onShowAutomate"
+            />
+
+        <Button
+            android:id="@+id/button_deco"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Déconnexion"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mybutton"
+            android:textColor="#ffff"
+            android:onClick="onDeconnect"
+            />
+
+        <TextView
+            android:id="@+id/tv_main_plc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0090ff"
+            android:text="Refplc"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:id="@+id/pb_main_progressionS7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:max="255"
+        android:visibility="visible"/>
+
 
 
 </LinearLayout>

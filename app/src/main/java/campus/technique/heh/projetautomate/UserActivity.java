@@ -2,22 +2,51 @@ package campus.technique.heh.projetautomate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.NoSuchAlgorithmException;
+
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
+import campus.technique.heh.projetautomate.user.UserAutomate;
 
 public class UserActivity extends AppCompatActivity {
+
+
+
+
+    private ProgressBar pb_main_progressionS7;
+    private Button bt_main_ConnexS7;
+    private TextView tv_main_plc;
+    private ReadTaskS7 readS7;
+    private NetworkInfo network;
+    private ConnectivityManager connexStatus;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         Intent intent = getIntent();
+
+
+
+        pb_main_progressionS7= (ProgressBar)findViewById(R.id.pb_main_progressionS7);
+        bt_main_ConnexS7 = (Button)findViewById(R.id.button_showAutomate);
+        tv_main_plc= (TextView)findViewById(R.id.tv_main_plc);
+        connexStatus= (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        network = connexStatus.getActiveNetworkInfo();
 
         if(intent != null){
             String email ="";
@@ -74,6 +103,45 @@ public class UserActivity extends AppCompatActivity {
 
 
 
+
+
+    public void onShowAutomate(View v) throws NoSuchAlgorithmException{
+        switch (v.getId()){
+            case R.id.button_showAutomate:
+//                Intent intent = new Intent(this, UserAutomate.class);
+//                startActivity(intent);
+                if(network != null&& network.isConnectedOrConnecting()) {
+                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
+                    Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
+                    bt_main_ConnexS7.setText("Déconnexion_S7");
+                    readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc); readS7.Start("192.168.1.90","0", "1");
+                } else{
+                    readS7.Stop();
+                    bt_main_ConnexS7.setText("Connexion_S7"); Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+                }
+                } else {
+                    Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();
+                } break;
+            default:
+                break;
+
+        }
+
+    }
+
+
+
+    public void onDeconnect(View v ) throws  NoSuchAlgorithmException{
+
+        switch (v.getId()){
+
+            case R.id.button_deco:
+                finish();
+
+            default:
+                break;
+        }
+    }
 
 
 }
