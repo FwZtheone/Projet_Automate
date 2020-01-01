@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,11 @@ public class UserActivity extends AppCompatActivity {
 
 
 
+
+    //variable pour récupérer l'ip,rack,slot
+    private EditText edit_ip;
+    private EditText edit_rack;
+    private EditText edit_slot;
 
     private ProgressBar pb_main_progressionS7;
     private Button bt_main_ConnexS7;
@@ -105,6 +111,17 @@ public class UserActivity extends AppCompatActivity {
 
 
     public void onShowAutomate(View v) throws NoSuchAlgorithmException{
+
+        //récupération des valeurs des edits text rack,slot,ip
+        edit_ip = (EditText)findViewById(R.id.edit_text_ip);
+        edit_rack = (EditText)findViewById(R.id.edit_text_rack);
+        edit_slot = (EditText)findViewById(R.id.edit_text_slot);
+
+        //je récupére la valeur en string des edits text ip,rack,slot
+
+        String edit_ip_string = edit_ip.getText().toString();
+        String edit_rack_string = edit_rack.getText().toString();
+        String edit_slot_string = edit_slot.getText().toString();
         switch (v.getId()){
             case R.id.button_showAutomate:
 
@@ -113,7 +130,7 @@ public class UserActivity extends AppCompatActivity {
                     Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
                     bt_main_ConnexS7.setText("Déconnexion_S7");
                     readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc);
-                    readS7.Start("192.168.1.90","0", "2");
+                    readS7.Start(edit_ip_string,edit_rack_string, edit_slot_string);
                 } else{
                     readS7.Stop();
                     bt_main_ConnexS7.setText("Connexion_S7");
