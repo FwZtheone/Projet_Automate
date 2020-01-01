@@ -78,12 +78,30 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
 
                 if(connectionUser(edit_text_email_string, InscriptionActivity.toHexString(InscriptionActivity.getSHA(edit_text_password_string)) ))
                 {
+                    DatabaseHelper mydb = new DatabaseHelper(this);
+                    Cursor res =mydb.getContact("*", edit_text_email_string);
+
+                    res.moveToFirst();
+                    String status = res.getString(res.getColumnIndex("STATUS"));
+                    if(status.equals("SUPERROOT"))
+                    {
+                        Intent intent = new Intent(this,BoardSuperAdActivity.class);
+                        intent.putExtra("user_email",edit_text_email_string);
+                        intent.putExtra("user_password",edit_text_password_string);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                    else{
+                        
+                   
                    Intent intent = new Intent(this,UserActivity.class);
                    intent.putExtra("user_email",edit_text_email_string);
                    intent.putExtra("user_password",edit_text_password_string);
 
                     startActivity(intent);
                     finish();
+                    }
                 }
                 else{
                     Toast.makeText(this, "login/mot de passe invalide", Toast.LENGTH_SHORT).show();

@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getContact(String column, String email){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res  = db.rawQuery( "SELECT" + column + "FROM Database_user WHERE EMAIL=?", new String[] {email});
+        Cursor res  = db.rawQuery( "SELECT " + column + " FROM Database_user WHERE EMAIL=?", new String[] {email});
         
         return res;
     }
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getContact(String column, String email,String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT" + column + "FROM Database_user where EMAIL =? AND password=?" ,new String[] {email,password});
+        Cursor res = db.rawQuery("SELECT " + column + " FROM Database_user where EMAIL =? AND password=?" ,new String[] {email,password});
         return res;
     }
 
