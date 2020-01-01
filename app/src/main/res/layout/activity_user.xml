@@ -94,7 +94,7 @@
             android:id="@+id/button_deco"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Déconnexion"
+            android:text="Déconnexion session"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@drawable/mybutton"
@@ -124,7 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:max="255"
-        android:visibility="visible"/>
+
+        android:visibility="invisible"/>
 
 
 

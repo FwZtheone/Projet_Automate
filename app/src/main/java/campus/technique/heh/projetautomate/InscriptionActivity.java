@@ -35,7 +35,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     // validating password with retype password
-    private boolean isValidPassword(String pass) {
+    public boolean isValidPassword(String pass) {
         String PASSWORD_PATTERN= "[a-zA-Z0-9]";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = pattern.matcher(pass);
@@ -47,7 +47,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     //je vérifie si l'email comporte des a ou A de 0 à 9 ainsi qu'il doit commencer de 1 à 256 carract et il doit comparer le @ensuite un hotmail etc.. .com
-    private boolean isValidEmail(String email){
+    public boolean isValidEmail(String email){
         String emailPattern =   "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +
                 "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +

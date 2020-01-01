@@ -114,10 +114,12 @@ public class UserActivity extends AppCompatActivity {
                     if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
                     Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
                     bt_main_ConnexS7.setText("Déconnexion_S7");
-                    readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc); readS7.Start("192.168.1.90","0", "1");
+                    readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc);
+                    readS7.Start("192.168.1.90","0", "2");
                 } else{
                     readS7.Stop();
-                    bt_main_ConnexS7.setText("Connexion_S7"); Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+                    bt_main_ConnexS7.setText("Connexion_S7");
+                    Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
                 }
                 } else {
                     Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();

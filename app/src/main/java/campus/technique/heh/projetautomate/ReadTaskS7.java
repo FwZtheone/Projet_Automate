@@ -71,7 +71,7 @@ public class ReadTaskS7 {
 
     private void downloadOnPreExecute(int t){
         Toast.makeText(vi_main_ui.getContext(), "le traitement en tâche de fond commence" + "\n", Toast.LENGTH_SHORT).show();
-        tv_main_plc.append( String.valueOf(t) );
+        tv_main_plc.setText(" PLC  : " +   String.valueOf(t) );
     }
 
 
@@ -113,7 +113,7 @@ public class ReadTaskS7 {
     };
 
 
-    public class AutomateS7  implements Runnable{
+    private class AutomateS7  implements Runnable{
 
 
         @Override
@@ -124,7 +124,8 @@ public class ReadTaskS7 {
 
                 S7OrderCode orderCode= new S7OrderCode();
                 Integer result= comS7.GetOrderCode(orderCode);
-                int numCPU=-1;
+                int numCPU;
+                numCPU = -1;
                 if (res.equals(0) && result.equals(0)){
                     //Quelques exemples : // WinAC: 6ES7 611-4SB00-0YB7
                     // S7-315 2DPP?N : 6ES7 315-4EH13-0AB0
@@ -134,7 +135,7 @@ public class ReadTaskS7 {
                 }
                 else
                 {
-                    numCPU=0000;
+                    numCPU= 0000;
                 }
                 sendPreExecuteMessage(numCPU);
 

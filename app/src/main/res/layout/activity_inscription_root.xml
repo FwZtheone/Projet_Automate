@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    tools:context=".InscriptionROOT">
+
+
+    <!-- login    password email status-->
+    <!--    myDb = new DatabaseHelper(this);-->
+
+    <!--    myDb.insertContact("SUPERROOT","123","fabrizio","SUPERADMIN");-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inscription     super root"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:layout_marginBottom="30dp"/>
+    <EditText
+        android:id="@+id/edit_Login_inscription_superRoot"
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"
+        android:hint="Login"
+        android:background="@drawable/arrondi_edittext"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:maxLines="1"
+        />
+
+
+
+    <EditText
+        android:id="@+id/edit_email_inscription_superRoot"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"
+        android:hint="Email"
+        android:background="@drawable/arrondi_edittext"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:maxLines="1"
+        />
+
+    <EditText
+        android:id="@+id/edit_password2_inscription_superRoot"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"
+        android:hint="Password"
+        android:background="@drawable/arrondi_edittext"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        />
+    <EditText
+        android:id="@+id/edit_password_inscription_superRoot"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"
+        android:hint="Password"
+        android:background="@drawable/arrondi_edittext"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        />
+
+
+
+    <Button
+        android:id="@+id/valider_superRoot"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Valider"
+        android:layout_gravity="center"
+        android:background="@drawable/mybutton"
+        android:textColor="#ffff"
+        android:layout_marginTop="5dp"
+        android:onClick="onClickInscriptionRoot"
+        />
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
