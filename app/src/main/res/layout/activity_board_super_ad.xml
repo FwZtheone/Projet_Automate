@@ -13,9 +13,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Account SuperAdmin"
+        android:text="Compte SuperAdmin"
         android:textAlignment="center"
-        android:textSize="20dp"/>
+        android:layout_marginBottom="30dp"
+        android:textSize="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,35 +25,35 @@
         android:orientation="horizontal"
         >
 
-    <ImageButton
-        android:id="@+id/button_users"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/user_register"
-        android:scaleType="fitCenter"
-        android:background="#ffff"
-        android:layout_marginLeft="30dp"
-        />
+<!--    <ImageButton-->
+<!--        android:id="@+id/button_users"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="@drawable/user_register"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:background="#ffff"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        />-->
 
-        <ImageButton
-            android:id="@+id/button_user"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/user"
-            android:scaleType="fitCenter"
-            android:background="#ffff"
-            android:layout_marginLeft="10dp"
-            />
+<!--        <ImageButton-->
+<!--            android:id="@+id/button_user"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:src="@drawable/user"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:background="#ffff"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            />-->
 
-        <ImageButton
-            android:id="@+id/button_automate"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/automate"
-            android:scaleType="fitCenter"
-            android:background="#ffff"
-            android:layout_marginLeft="10dp"
-            />
+<!--        <ImageButton-->
+<!--            android:id="@+id/button_automate"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:src="@drawable/automate"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:background="#ffff"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            />-->
 
 
 
@@ -63,18 +64,136 @@
         android:gravity="fill_horizontal"
         android:orientation="vertical">
     <TextView
-        android:id="@+id/TextView_email"
+        android:id="@+id/TextView_email_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
         android:text="Email : "
+        android:textColor="#363EAF"
         android:textSize="20dp"/>
 
     <TextView
-        android:id="@+id/TextView_Login"
+        android:id="@+id/TextView_login_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Login : "
+        android:textColor="#363EAF"
+
+        android:layout_marginBottom="10dp"
+
+        android:layout_marginLeft="5dp"
         android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/TextView_password_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Mot de passe : "
+            android:textColor="#363EAF"
+
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginLeft="5dp"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/TextView_ecriture_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:textColor="#363EAF"
+            android:text="Ecriture : "
+            android:layout_marginLeft="5dp"
+            android:textSize="20dp"/>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_text_ip"
+            android:layout_marginLeft="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="IP AUTOMATE"/>
+        <EditText
+            android:id="@+id/edit_text_rack"
+            android:layout_width="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="RACK"/>
+        <EditText
+            android:id="@+id/edit_text_slot"
+            android:layout_width="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="SLOT">
+
+        </EditText>
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <Button
+            android:id="@+id/button_showAutomate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Connexion_S7"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mybutton"
+            android:textColor="#ffff"
+            android:onClick="onShowAutomate"
+            />
+
+        <Button
+            android:id="@+id/button_deco"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Déconnexion session"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mybutton"
+            android:textColor="#ffff"
+            android:onClick="onDeconnect"
+            />
+
+        <TextView
+            android:id="@+id/tv_main_plc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0090ff"
+            android:text="Refplc"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/pb_main_progressionS7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:max="255"
+
+            android:visibility="invisible"/>
     </LinearLayout>
 
 

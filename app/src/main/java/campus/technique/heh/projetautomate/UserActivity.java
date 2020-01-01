@@ -18,7 +18,6 @@ import android.widget.Toast;
 import java.security.NoSuchAlgorithmException;
 
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
-import campus.technique.heh.projetautomate.user.UserAutomate;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -108,9 +107,8 @@ public class UserActivity extends AppCompatActivity {
     public void onShowAutomate(View v) throws NoSuchAlgorithmException{
         switch (v.getId()){
             case R.id.button_showAutomate:
-//                Intent intent = new Intent(this, UserAutomate.class);
-//                startActivity(intent);
-                if(network != null&& network.isConnectedOrConnecting()) {
+
+                if(network != null && network.isConnectedOrConnecting()) {
                     if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
                     Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
                     bt_main_ConnexS7.setText("Déconnexion_S7");

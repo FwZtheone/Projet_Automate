@@ -71,7 +71,34 @@
             android:text="Ecriture : "/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/edit_text_ip"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="IP AUTOMATE"/>
+        <EditText
+            android:id="@+id/edit_text_rack"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="RACK"/>
+        <EditText
+            android:id="@+id/edit_text_slot"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="SLOT">
+
+        </EditText>
+
+
+
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,6 +141,8 @@
 
 
     </LinearLayout>
+
+
 
 
 
