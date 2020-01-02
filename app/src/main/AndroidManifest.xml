@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".InscriptionROOT"></activity>
+        <activity android:name=".ShowUser"></activity>
+        <activity android:name=".InscriptionROOT" />
         <activity android:name=".user.UserAutomate" />
         <activity android:name=".UserActivity" />
         <activity android:name=".BoardSuperAdActivity" />

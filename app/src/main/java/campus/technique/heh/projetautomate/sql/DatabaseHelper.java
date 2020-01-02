@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -79,6 +81,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return array_list;
     }
+
+
+    public Map<Integer,String> getShowUser(){
+        Map<Integer,String> tableau_user= new HashMap<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select  * from Database_user", null);
+        res.moveToFirst();
+        int index = 0;
+        while(res.isAfterLast() == false){
+            tableau_user.put(index, res.getString(res.getColumnIndex(COL_EMAIL)));
+            index++;
+            res.moveToNext();
+
+        }
+
+        return tableau_user;
+
+    }
+
+
+
 
     //on affiche un certain type de user !
     public ArrayList<String> getAllContacts(String information){

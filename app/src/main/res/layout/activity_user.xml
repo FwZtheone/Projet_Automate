@@ -79,16 +79,19 @@
         <EditText
             android:id="@+id/edit_text_ip"
             android:layout_width="200dp"
+            android:maxLines="1"
             android:layout_height="wrap_content"
-            android:text="IP AUTOMATE"/>
+            android:hint="IP AUTOMATE"/>
         <EditText
             android:id="@+id/edit_text_rack"
             android:layout_width="100dp"
+            android:maxLines="1"
             android:layout_height="wrap_content"
-            android:text="RACK"/>
+            android:hint="RACK"/>
         <EditText
             android:id="@+id/edit_text_slot"
             android:layout_width="100dp"
+            android:maxLines="1"
             android:layout_height="wrap_content"
             android:text="SLOT">
 
