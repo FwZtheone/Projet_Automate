@@ -147,4 +147,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+    //supprimer un user de la DB
+    public Integer deletUser(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        return db.delete("Database_user"," email = ? " , new String[] {email});
+    }
+
+
 }

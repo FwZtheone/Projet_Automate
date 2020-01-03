@@ -7,7 +7,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,8 +31,9 @@ public class ShowUser extends AppCompatActivity {
     private ArrayList<String> data_email = new ArrayList<String>();
     private ArrayList<String> data_login = new ArrayList<String>();
     private ArrayList<String> data_ecriture = new ArrayList<String>();
-
+    private   Spinner combo_email ;
     private TableLayout table;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class ShowUser extends AppCompatActivity {
         setContentView(R.layout.activity_show_user);
 
 
-        DatabaseHelper mydb = new DatabaseHelper(this);
+        final DatabaseHelper mydb = new DatabaseHelper(this);
 
         Map<Integer,String> tableau_user = mydb.getShowUser();
 
@@ -53,7 +59,7 @@ public class ShowUser extends AppCompatActivity {
             data_email.add(res.getString(res.getColumnIndex("EMAIL")));
             data_login.add(res.getString(res.getColumnIndex("LOGIN")));
             data_ecriture.add(res.getString(res.getColumnIndex("ECRITURE")));
-
+            res.close();
             //création de la ligne pour afficher les users
             TableRow ligne = new TableRow(this);
 
@@ -90,8 +96,20 @@ public class ShowUser extends AppCompatActivity {
              */
 
 
+            //combobox
+             combo_email = (Spinner)findViewById(R.id.combobox_user);
+            ArrayAdapter<String> adp1 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, data_email);
+
+            adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            combo_email.setAdapter(adp1);
 
 
+
+
+
+
+            //tableau
             TextView view_login = new TextView(this);
             view_login.setText(login);
             view_login.setLayoutParams(new TableRow.LayoutParams(
@@ -119,9 +137,12 @@ public class ShowUser extends AppCompatActivity {
 
 
 
+
+
             ligne.addView(view_login);
             ligne.addView(view_email);
             ligne.addView(view_ecriture);
+
 
             table.addView(ligne);
 
@@ -138,6 +159,33 @@ public class ShowUser extends AppCompatActivity {
 
 
 
+
+
+    public void onDeleteUser(View v){
+
+
+        int item_id = combo_email.getSelectedItemPosition()+1;
+        DatabaseHelper mydb = new DatabaseHelper(this);
+
+        String email = combo_email.getSelectedItem().toString();
+        if(item_id == 1){
+            Toast.makeText(this, "tu ne peux pas te supprimer super root !", Toast.LENGTH_LONG).show();
+
+        }
+        else{
+            mydb.deletUser(email);
+            Toast.makeText(this, "SUPPRIME", Toast.LENGTH_LONG).show();
+
+        }
+
+
+
+
+
+
+
+
+    }
 
 
     
