@@ -12,7 +12,16 @@
         android:id="@+id/text_view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"/>
+        android:textAlignment="center"
+        android:textSize="20dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Informations"
+        android:textFontWeight="2"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,8 +31,7 @@
             android:id="@+id/TextView_user_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="Login : "/>
     </LinearLayout>
@@ -39,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textSize="30dp"
+
             android:text="Email : "/>
     </LinearLayout>
     <LinearLayout
@@ -52,7 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textSize="30dp"
             android:text="mot de passe : "/>
     </LinearLayout>
 
@@ -67,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textSize="30dp"
             android:text="Ecriture : "/>
     </LinearLayout>
 
@@ -93,7 +99,7 @@
             android:layout_width="100dp"
             android:maxLines="1"
             android:layout_height="wrap_content"
-            android:text="SLOT">
+            android:hint="SLOT">
 
         </EditText>
 
@@ -145,6 +151,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_lecture"
+            android:layout_width="100dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:text="Lecture"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mybutton"
+            android:textColor="#ffff"
+            android:enabled="false"
+            android:onClick="onLecture"
+            />
+
+
+    </LinearLayout>
 
 
 

@@ -23,6 +23,9 @@ import campus.technique.heh.projetautomate.sql.DatabaseHelper;
 public class UserActivity extends AppCompatActivity {
 
 
+    //btn lecture
+    private Button btn_lecture ;
+
 
 
     //variable pour récupérer l'ip,rack,slot
@@ -131,7 +134,13 @@ public class UserActivity extends AppCompatActivity {
                     bt_main_ConnexS7.setText("Déconnexion_S7");
                     readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc);
                     readS7.Start(edit_ip_string,edit_rack_string, edit_slot_string);
+
+                    //activation du btn de lecture de l'automate !!
+                        btn_lecture = (Button)findViewById(R.id.button_lecture);
+                        btn_lecture.setEnabled(true);
                 } else{
+                        btn_lecture = (Button)findViewById(R.id.button_lecture);
+                        btn_lecture.setEnabled(false);
                     readS7.Stop();
                     bt_main_ConnexS7.setText("Connexion_S7");
                     Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
@@ -144,6 +153,12 @@ public class UserActivity extends AppCompatActivity {
 
         }
 
+    }
+    
+    
+    public void onLecture(View v){
+
+        Toast.makeText(this, "lecture de l'automate", Toast.LENGTH_SHORT).show();
     }
 
 
