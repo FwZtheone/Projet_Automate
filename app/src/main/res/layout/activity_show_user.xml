@@ -94,13 +94,25 @@
         
         <Spinner
             android:id="@+id/combobox_user"
-            android:layout_width="280dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content">
 
 
         </Spinner>
 
+        <Spinner
+            android:id="@+id/combobox_ecriture"
+            android:layout_width="120dp"
+            android:layout_height="60dp">
+
+
+        </Spinner>
+
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:id="@+id/btn_supp"
         android:layout_width="wrap_content"
@@ -111,5 +123,20 @@
         android:textColor="#ffff"
         android:layout_marginLeft="5dp"
         />
+
+        <Button
+            android:id="@+id/btn_modifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2F9C1E"
+            android:text="modifier"
+            android:onClick="onModifierUser"
+            android:textColor="#ffff"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

@@ -158,4 +158,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+    /*
+
+
+    private static final String TABLE_NAME = "Database_user";
+    private static final String COL_ID = "ID";
+    private static final String COL_LOGIN = "LOGIN";
+    private static final String COL_PASSWORD = "PASSWORD";
+    private static final String COL_EMAIL = "EMAIL";
+    private static final String COL_STATUS = "STATUS";
+    private static final String COL_ECRITURE = "ECRITURE";
+
+     */
+
+
+    //modifier un user écriture et lecture
+    public boolean updateUser (Boolean ecriture,String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ECRITURE", ecriture);
+        db.update("Database_user", contentValues, " email = ? ", new String[] { email } );
+        return true;
+    }
+
+
+
+
 }

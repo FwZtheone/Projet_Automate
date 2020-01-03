@@ -31,7 +31,12 @@ public class ShowUser extends AppCompatActivity {
     private ArrayList<String> data_email = new ArrayList<String>();
     private ArrayList<String> data_login = new ArrayList<String>();
     private ArrayList<String> data_ecriture = new ArrayList<String>();
+
+    private ArrayList<String> type_ecriture = new ArrayList<>();
+
+    //variable des combobox
     private   Spinner combo_email ;
+    private Spinner combo_ecriture;
     private TableLayout table;
 
 
@@ -40,6 +45,9 @@ public class ShowUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_user);
 
+        //je place les valeurs de mon tableau type d'écriture
+        type_ecriture.add("R/W");
+        type_ecriture.add("R");
 
         final DatabaseHelper mydb = new DatabaseHelper(this);
 
@@ -69,12 +77,15 @@ public class ShowUser extends AppCompatActivity {
             String login = data_login.get(index);
             String ecriture = data_ecriture.get(index);
 
+
             if(ecriture.equals("0")){
                 ecriture = "R";
             }
             else{
                 ecriture = "R/W";
             }
+
+
             //création de la view pour stocker les données des users
 
             /*
@@ -96,7 +107,7 @@ public class ShowUser extends AppCompatActivity {
              */
 
 
-            //combobox
+            //combobox pour les emails
              combo_email = (Spinner)findViewById(R.id.combobox_user);
             ArrayAdapter<String> adp1 = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, data_email);
@@ -104,6 +115,13 @@ public class ShowUser extends AppCompatActivity {
             adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             combo_email.setAdapter(adp1);
 
+            //combobox pour l'écriture
+            combo_ecriture = (Spinner)findViewById(R.id.combobox_ecriture);
+            ArrayAdapter<String> adp2 = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1,type_ecriture);
+
+            adp2.setDropDownViewResource(android.R.layout.simple_gallery_item);
+            combo_ecriture.setAdapter(adp2);
 
 
 
@@ -154,6 +172,33 @@ public class ShowUser extends AppCompatActivity {
 
 
 
+
+    }
+
+
+    public void onModifierUser(View v){
+
+        DatabaseHelper  mydb = new DatabaseHelper(this);
+        String ecriture = combo_ecriture.getSelectedItem().toString();
+        String email = combo_email.getSelectedItem().toString();
+        Boolean ecrit;
+        if(ecriture.equals("R/W")){
+            ecrit = true;
+        }
+        else{
+            ecrit = false;
+        }
+
+        int item_id_combo_email = combo_email.getSelectedItemPosition()+1;
+        if(item_id_combo_email == 1)
+        {
+            Toast.makeText(this, "tu ne peux pas changer ta propre écriture ! ", Toast.LENGTH_LONG).show();
+        }
+        else{
+            mydb.updateUser(ecrit,email);
+            Toast.makeText(this,"MODIFIER",Toast.LENGTH_LONG).show();
+
+        }
 
     }
 
