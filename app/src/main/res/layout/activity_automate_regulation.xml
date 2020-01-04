@@ -56,10 +56,57 @@
     </TextView>
 
     <TextView
-        android:id="@+id/tv_etat_plc"
+        android:id="@+id/tv_etat1_plc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Etat de fonctionnement : ">
+        android:text="Etat valve 1 : ">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/tv_etat2_plc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etat valve 2 : ">
+
+    </TextView>
+
+
+
+    <TextView
+        android:id="@+id/tv_etat3_plc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etat valve 3 : ">
+
+    </TextView>
+
+
+
+    <TextView
+        android:id="@+id/tv_etat4_plc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etat valve 4 : ">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/tv_etat5_plc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etat valve 5 : ">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/tv_etat6_plc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etat valve 6 : ">
 
     </TextView>
 
