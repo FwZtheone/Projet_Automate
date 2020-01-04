@@ -31,12 +31,27 @@ public class ReadTaskS7 {
     private TextView tv_main_plc;
 
 
+
+    //TextView pour le liquide
+    private TextView tv_liquide_plc;
+    private TextView tv_status_plc;
+    private TextView tv_setpoint_plc;
+    private TextView tv_consigneM_plc;
+    private TextView tv_mot_pilotage;
+
+
+
+
     private AutomateS7 plcS7;
     private Thread readThread;
 
     private S7Client comS7;
     private String[] param = new String[10];
     private byte[] datasPLC = new byte[512];
+
+    private byte[] volumePLC = new byte[512];
+
+
 
     public ReadTaskS7(View v, Button b, ProgressBar p, TextView t){
         vi_main_ui = v;
@@ -72,6 +87,7 @@ public class ReadTaskS7 {
     private void downloadOnPreExecute(int t){
         Toast.makeText(vi_main_ui.getContext(), "le traitement en tâche de fond commence" + "\n", Toast.LENGTH_SHORT).show();
         tv_main_plc.setText(" PLC  : " +   String.valueOf(t) );
+
     }
 
 
@@ -142,12 +158,19 @@ public class ReadTaskS7 {
                 while(isRunning.get()){
                     if (res.equals(0)){
                         int retInfo= comS7.ReadArea(S7.S7AreaDB,5,9,2,datasPLC);
-                        int data=0; //intdataB=0;
+                        //niveau de liquide
+                        int liquideInfo = comS7.ReadArea(S7.S7AreaDB,5,16,2,volumePLC);
+                        int data=0;
+                         int dataB=0;
+
                         if (retInfo==0) {
                             data = S7.GetWordAt(datasPLC, 0);
+                            dataB = S7.GetWordAt(volumePLC,0);
+
                             sendProgressMessage(data);
                             }
                      Log.i("Variable A.P.I. -> ", String.valueOf(data));
+                        Log.i("Contenu du volume  -> ", String.valueOf(dataB));
                     }
                 try{
                     Thread.sleep(500);

@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:inputType="text"
-        android:hint="Email"
+        android:text="chiara@hotmail.com"
         android:maxLines="1"
         />
 
@@ -48,7 +48,7 @@
         android:drawableLeft="@drawable/ic_password"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:hint="Password"/>
+        android:text="12345"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

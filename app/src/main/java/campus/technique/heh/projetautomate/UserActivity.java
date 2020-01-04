@@ -132,6 +132,10 @@ public class UserActivity extends AppCompatActivity {
                     if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
                     Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
                     bt_main_ConnexS7.setText("Déconnexion_S7");
+
+                    /*
+==============================  instanciation de l'objet de type ReadTaskS7 ===================================================
+                    */
                     readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc);
                     readS7.Start(edit_ip_string,edit_rack_string, edit_slot_string);
 
@@ -158,7 +162,12 @@ public class UserActivity extends AppCompatActivity {
     
     public void onLecture(View v){
 
-        Toast.makeText(this, "lecture de l'automate", Toast.LENGTH_SHORT).show();
+       Intent intent = new Intent(this,AutomateRegulation.class);
+       startActivity(intent);
+
+
+
+
     }
 
 
