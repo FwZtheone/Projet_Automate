@@ -33,13 +33,20 @@ public class UserActivity extends AppCompatActivity {
     private EditText edit_rack;
     private EditText edit_slot;
 
-    private ProgressBar pb_main_progressionS7;
     private Button bt_main_ConnexS7;
     private TextView tv_main_plc;
-    private ReadTaskS7 readS7;
+//    private ReadTaskS7 readS7;
     private NetworkInfo network;
     private ConnectivityManager connexStatus;
 
+
+
+    private ReadTS7 rest1;
+
+
+
+    //variable qui récupére les données de l'automate (1)
+    static TextView tv_liquide_plc;
 
 
     @Override
@@ -48,11 +55,13 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         Intent intent = getIntent();
 
-
-
-        pb_main_progressionS7= (ProgressBar)findViewById(R.id.pb_main_progressionS7);
+        //variable qui récupére les données de l'automate (2)
         bt_main_ConnexS7 = (Button)findViewById(R.id.button_showAutomate);
         tv_main_plc= (TextView)findViewById(R.id.tv_main_plc);
+        tv_liquide_plc = (TextView)findViewById(R.id.tv_liquide_plc);
+
+
+
         connexStatus= (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         network = connexStatus.getActiveNetworkInfo();
 
@@ -127,31 +136,50 @@ public class UserActivity extends AppCompatActivity {
         String edit_slot_string = edit_slot.getText().toString();
         switch (v.getId()){
             case R.id.button_showAutomate:
-
                 if(network != null && network.isConnectedOrConnecting()) {
-                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
-                    Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
-                    bt_main_ConnexS7.setText("Déconnexion_S7");
+                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")) {
+                        Toast.makeText(this, network.getTypeName(), Toast.LENGTH_SHORT).show();
+                        bt_main_ConnexS7.setText("Déconnexion_S7");
 
-                    /*
-==============================  instanciation de l'objet de type ReadTaskS7 ===================================================
-                    */
-                    readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc);
-                    readS7.Start(edit_ip_string,edit_rack_string, edit_slot_string);
+                        if (edit_ip_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals("")){
+                            Toast.makeText(this, "un champ manquant !", Toast.LENGTH_SHORT).show();
+                    }
+                        
+                        else{
 
-                    //activation du btn de lecture de l'automate !!
-                        btn_lecture = (Button)findViewById(R.id.button_lecture);
-                        btn_lecture.setEnabled(true);
-                } else{
-                        btn_lecture = (Button)findViewById(R.id.button_lecture);
-                        btn_lecture.setEnabled(false);
-                    readS7.Stop();
-                    bt_main_ConnexS7.setText("Connexion_S7");
-                    Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, AutomateRegulation.class);
+                            intent.putExtra("ip", edit_ip_string);
+                            intent.putExtra("rack", edit_rack_string);
+
+                            intent.putExtra("slot", edit_slot_string);
+
+                            startActivity(intent);
+                        }
+
+
+
+
+
                 }
-                } else {
+                    else{
+
+                        if(AutomateRegulation.rest1 != null){
+                            AutomateRegulation.rest1.Stop();
+                            bt_main_ConnexS7.setText("Connexion_S7");
+                            Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    bt_main_ConnexS7.setText("Connexion_S7");
+
+                }
+                }
+
+                else
+                    {
                     Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();
-                } break;
+                }
+                break;
             default:
                 break;
 
@@ -160,15 +188,7 @@ public class UserActivity extends AppCompatActivity {
     }
     
     
-    public void onLecture(View v){
 
-       Intent intent = new Intent(this,AutomateRegulation.class);
-       startActivity(intent);
-
-
-
-
-    }
 
 
 

@@ -156,22 +156,8 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button_lecture"
-            android:layout_width="100dp"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"
-            android:text="Lecture"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/mybutton"
-            android:textColor="#ffff"
-            android:enabled="false"
-            android:onClick="onLecture"
-            />
-
         <TextView
-            android:id="@+id/affichage_comprime"
+            android:id="@+id/tv_liquide_plc"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             >
@@ -183,15 +169,7 @@
 
 
 
-    <ProgressBar
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:id="@+id/pb_main_progressionS7"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-        android:max="255"
 
-        android:visibility="invisible"/>
 
 
 

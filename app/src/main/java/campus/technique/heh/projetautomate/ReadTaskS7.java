@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import campus.technique.heh.projetautomate.simatic_s7.S7;
@@ -53,11 +55,23 @@ public class ReadTaskS7 {
 
 
 
-    public ReadTaskS7(View v, Button b, ProgressBar p, TextView t){
+    public ReadTaskS7( TextView liquide){
+
+        tv_liquide_plc = liquide;
+
+        comS7 = new S7Client();
+        plcS7 = new AutomateS7();
+        readThread = new Thread(plcS7);
+
+    }
+
+
+    public ReadTaskS7(View v, Button b, ProgressBar p, TextView t, TextView liquide){
         vi_main_ui = v;
         bt_main_connexS7 = b;
         pb_main_progressionS7 = p;
         tv_main_plc = t;
+        tv_liquide_plc = liquide;
         comS7 = new S7Client();
         plcS7 = new AutomateS7();
         readThread = new Thread(plcS7);
@@ -84,9 +98,10 @@ public class ReadTaskS7 {
     }
 
 
-    private void downloadOnPreExecute(int t){
-        Toast.makeText(vi_main_ui.getContext(), "le traitement en tâche de fond commence" + "\n", Toast.LENGTH_SHORT).show();
+    private void downloadOnPreExecute(int t,int liquide){
         tv_main_plc.setText(" PLC  : " +   String.valueOf(t) );
+        tv_liquide_plc.setText(" LIQUIDE  : " +   String.valueOf(liquide) );
+
 
     }
 
@@ -97,9 +112,9 @@ public class ReadTaskS7 {
 
 
     private void downloadOnPostExecute(){
-        Toast.makeText(vi_main_ui.getContext(), "le traitement en tâche de fond est finie ", Toast.LENGTH_SHORT).show();
         pb_main_progressionS7.setProgress(0);
         tv_main_plc.setText("PLC: /!\\");
+        tv_liquide_plc.setText("LIQUIDE : 0");
     }
 
     @SuppressLint("HandlerLeak")
@@ -109,7 +124,7 @@ public class ReadTaskS7 {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MESSAGE_PRE_EXECUTE:
-                    downloadOnPreExecute(msg.arg1);
+                    downloadOnPreExecute(msg.arg1,msg.arg2);
                     break;
 
                 case MESSAGE_PROGRESS_UPDATE:
@@ -153,7 +168,7 @@ public class ReadTaskS7 {
                 {
                     numCPU= 0000;
                 }
-                sendPreExecuteMessage(numCPU);
+
 
                 while(isRunning.get()){
                     if (res.equals(0)){
@@ -167,7 +182,9 @@ public class ReadTaskS7 {
                             data = S7.GetWordAt(datasPLC, 0);
                             dataB = S7.GetWordAt(volumePLC,0);
 
-                            sendProgressMessage(data);
+                            sendProgressMessage(data,dataB);
+                            sendPreExecuteMessage(numCPU,dataB);
+
                             }
                      Log.i("Variable A.P.I. -> ", String.valueOf(data));
                         Log.i("Contenu du volume  -> ", String.valueOf(dataB));
@@ -196,16 +213,18 @@ public class ReadTaskS7 {
         }
 
 
-        private void sendPreExecuteMessage(int v ) {
+        private void sendPreExecuteMessage(int v,int liquide ) {
             Message preExecuteMsg= new Message();
             preExecuteMsg.what= MESSAGE_PRE_EXECUTE;
             preExecuteMsg.arg1 = v;
+            preExecuteMsg.arg2 = liquide;
             monHandler.sendMessage(preExecuteMsg);
         }
-        private void sendProgressMessage(int i) {
+        private void sendProgressMessage(int i,int e) {
             Message progressMsg= new Message();
             progressMsg.what= MESSAGE_PROGRESS_UPDATE;
             progressMsg.arg1 = i;
+            progressMsg.arg2 = e;
             monHandler.sendMessage(progressMsg);
         }
 
