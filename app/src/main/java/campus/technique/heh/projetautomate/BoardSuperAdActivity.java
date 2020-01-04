@@ -128,17 +128,45 @@ public class BoardSuperAdActivity extends AppCompatActivity {
             case R.id.button_showAutomate:
 
                 if(network != null && network.isConnectedOrConnecting()) {
-                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")){
-                        Toast.makeText(this,network.getTypeName(),Toast.LENGTH_SHORT).show();
+                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")) {
+                        Toast.makeText(this, network.getTypeName(), Toast.LENGTH_SHORT).show();
                         bt_main_ConnexS7.setText("Déconnexion_S7");
-//                        readS7 = new ReadTaskS7(v,bt_main_ConnexS7, pb_main_progressionS7, tv_main_plc,t);
-//                        readS7.Start(edit_ip_string,edit_rack_string,edit_slot_string);
-                    } else{
-                        readS7.Stop();
+
+                        if (edit_ip_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals("")) {
+                            Toast.makeText(this, "un champ manquant !", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Intent intent = new Intent(this, AutomateRegulation.class);
+                            intent.putExtra("ip", edit_ip_string);
+                            intent.putExtra("rack", edit_rack_string);
+
+                            intent.putExtra("slot", edit_slot_string);
+
+                            startActivity(intent);
+                        }
+
+
+                    } else {
+
+                        if (AutomateRegulation.rest1 != null) {
+                            AutomateRegulation.rest1.Stop();
+                            bt_main_ConnexS7.setText("Connexion_S7");
+                            Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+                        }
+
+
                         bt_main_ConnexS7.setText("Connexion_S7");
-                        Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+
                     }
-                } else {
+
+                }
+
+
+
+
+
+
+                else {
                     Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();
                 } break;
             default:
