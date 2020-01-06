@@ -36,7 +36,6 @@ public class WriteTaskS7 {
         this.amount = amount;
         motCommande = new byte[amount];
         comS7 = new S7Client();
-
         plcS7 = new AutomateS7();
         writeThread = new Thread(plcS7);
     }

@@ -102,17 +102,24 @@ public class AutomateRegulation extends AppCompatActivity {
     private byte[] word = new byte[16];
 
     private Handler handler = new Handler();
+
+
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             networkInfo = connectivityManager.getActiveNetworkInfo();
             isNetworkActive();
-//            handler.postDelayed(this, 1000);
         }
     };
 
+
+
+
     private InfoLecture InfoLecture;
     private boolean pause;
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -146,7 +153,6 @@ public class AutomateRegulation extends AppCompatActivity {
 
 
 
-//        handler.postDelayed(runnable, 1000);
 
         isNetworkActive();
 
@@ -191,8 +197,25 @@ public class AutomateRegulation extends AppCompatActivity {
 
         pause = false;
         InfoLecture = new InfoLecture();
-        InfoLecture.execute("");
+        InfoLecture.execute();
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private class InfoLecture extends AsyncTask<String, Integer, String> {
 
@@ -220,17 +243,23 @@ public class AutomateRegulation extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //retourne 1 si connexion réussie !
             client.SetConnectionType(S7.S7_BASIC);
             if (ip != null){
-                client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
+                int result = client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
+                    client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
+                    isRunning = true;
+                Toast.makeText(AutomateRegulation.this, String.valueOf(result), Toast.LENGTH_SHORT).show();
+
             }
 
-            isRunning = true;
+//            isRunning = true;
         }
 
         @Override
         protected String doInBackground(String... strings) {
             String string = "";
+
             while (isRunning) {
                 while (!pause) {
                     byte[] dbb0 = new byte[8];
@@ -382,7 +411,7 @@ public class AutomateRegulation extends AppCompatActivity {
         super.onStop();
     }
 
-    public void onPillClickManager(View v) {
+    public void onClickLiquideManager(View v) {
         ViewGroup parent;
         View view;
         switch (v.getId()) {
@@ -427,28 +456,28 @@ public class AutomateRegulation extends AppCompatActivity {
                 writeDBB2.setBitAt(0, ch_level_dbb2_7.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_0:
-                writeDBB2.setBitAt(7, ch_level_dbb3_0.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(7, ch_level_dbb3_0.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_1:
-                writeDBB2.setBitAt(6, ch_level_dbb3_1.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(6, ch_level_dbb3_1.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_2:
-                writeDBB2.setBitAt(5, ch_level_dbb3_2.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(5, ch_level_dbb3_2.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_3:
-                writeDBB2.setBitAt(4, ch_level_dbb3_3.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(4, ch_level_dbb3_3.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_4:
-                writeDBB2.setBitAt(3, ch_level_dbb3_4.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(3, ch_level_dbb3_4.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_5:
-                writeDBB2.setBitAt(2, ch_level_dbb3_5.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(2, ch_level_dbb3_5.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_6:
-                writeDBB2.setBitAt(1, ch_level_dbb3_6.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(1, ch_level_dbb3_6.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_7:
-                writeDBB2.setBitAt(0, ch_level_dbb3_7.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(0, ch_level_dbb3_7.isChecked() ? 1 : 0);
                 break;
         }
     }
@@ -526,9 +555,9 @@ public class AutomateRegulation extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    writeDBW26.setWordAt(0, Integer.parseInt(charSequence.toString()));
-                } catch (NumberFormatException nFE) {
-                    nFE.printStackTrace();
+                    writeDBW26.setWordAt(0, 50);
+                } catch (NumberFormatException error) {
+                    error.printStackTrace();
                 }
             }
 
@@ -547,8 +576,8 @@ public class AutomateRegulation extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
                     writeDBW28.setWordAt(0, Integer.parseInt(charSequence.toString()));
-                } catch (NumberFormatException nFE) {
-                    nFE.printStackTrace();
+                } catch (NumberFormatException error) {
+                    error.printStackTrace();
                 }
             }
 
@@ -567,8 +596,8 @@ public class AutomateRegulation extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
                     writeDBW30.setWordAt(0, Integer.parseInt(charSequence.toString()));
-                } catch (NumberFormatException nFE) {
-                    nFE.printStackTrace();
+                } catch (NumberFormatException error) {
+                    error.printStackTrace();
                 }
             }
 

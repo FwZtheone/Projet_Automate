@@ -60,7 +60,9 @@ public class UserActivity extends AppCompatActivity {
         bt_main_ConnexS7 = (Button)findViewById(R.id.button_showAutomate);
 
         connexStatus= (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
         network = connexStatus.getActiveNetworkInfo();
+
 
         if(intent != null){
             String email ="";
@@ -148,7 +150,14 @@ public class UserActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.button_showAutomate:
                 if(network != null && network.isConnectedOrConnecting()) {
-                    if (bt_main_ConnexS7.getText().equals("Connexion_AutomateLiquide")) {
+                    Toast.makeText(this,edit_ip_string + " " + edit_rack_string + " "+ edit_slot_string + " " + edit_databloc_string, Toast.LENGTH_SHORT).show();
+                    if(edit_ip_string.equals("") || edit_databloc_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals(""))
+                    {
+                        Toast.makeText(this, "Un champ manquant ! ", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        if (bt_main_ConnexS7.getText().equals("Connexion_AutomateLiquide")) {
                             bt_main_ConnexS7.setText("Déconnexion_AutomateLiquide");
                             Intent intent = new Intent(this, AutomateRegulation.class);
                             intent.putExtra("ip", edit_ip_string);
@@ -161,14 +170,11 @@ public class UserActivity extends AppCompatActivity {
 
 
 
+                        }
+                        else{ bt_main_ConnexS7.setText("Connexion_AutomateLiquide"); }
+                    }
                 }
-                    else{
-
-
-                    bt_main_ConnexS7.setText("Connexion_AutomateLiquide");
-
-                }
-                }
+              
 
                 else
                     {

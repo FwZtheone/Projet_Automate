@@ -17,7 +17,6 @@
         <activity android:name=".AutomateRegulation" />
         <activity android:name=".ShowUser" />
         <activity android:name=".InscriptionROOT" />
-        <activity android:name=".user.UserAutomate" />
         <activity android:name=".UserActivity" />
         <activity android:name=".ConnectionActivity" />
         <activity android:name=".InscriptionActivity" />
