@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -22,7 +23,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 import campus.technique.heh.projetautomate.simatic_s7.S7;
 import campus.technique.heh.projetautomate.simatic_s7.S7Client;
@@ -103,13 +107,14 @@ public class AutomateRegulation extends AppCompatActivity {
         public void run() {
             networkInfo = connectivityManager.getActiveNetworkInfo();
             isNetworkActive();
-            handler.postDelayed(this, 1000);
+//            handler.postDelayed(this, 1000);
         }
     };
 
     private InfoLecture InfoLecture;
     private boolean pause;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,17 +123,30 @@ public class AutomateRegulation extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        networkInfo = Objects.requireNonNull(connectivityManager).getActiveNetworkInfo();
+
+
+
+
 
         resources = getResources();
         Intent intent = getIntent();
 
+
+
+        ip = intent.getStringExtra("ip");
+
+        rack =intent.getStringExtra("rack");
+        slot = intent.getStringExtra("slot");
+        databloc = intent.getStringExtra("databloc");
+
         ecriturePermission  = intent.getStringExtra("permissionEcriture");
-//        Toast.makeText(this, " la permission "  + ecriturePermission, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, " ip " + ip  + " slot   " + slot + " rack " + rack + " db " + databloc ,Toast.LENGTH_SHORT).show();
 
 
 
-        handler.postDelayed(runnable, 1000);
+//        handler.postDelayed(runnable, 1000);
 
         isNetworkActive();
 
@@ -145,23 +163,19 @@ public class AutomateRegulation extends AppCompatActivity {
         else
             btn_level_write.setVisibility(View.INVISIBLE);
 
-        name = getIntent().getStringExtra("name");
-        ip = getIntent().getStringExtra("ip");
 
 
-         rack ="";
-         slot ="";
 
-           rack =intent.getStringExtra("rack");
-           slot = intent.getStringExtra("slot");
+
 
 
         tv_level_automateName.setText("Automate Liquide ");
 
 //        Toast.makeText(this, ip + " :"  + rack + " : " + slot, Toast.LENGTH_SHORT).show();
-        databloc = intent.getStringExtra("databloc");
+
+
         readS7 = new ReadTaskS7(pb_level_S7, tv_level_plc);
-        readS7.Start(ip, String.valueOf(rack), String.valueOf(slot));
+        readS7.Start(ip, rack, slot);
         writeDBB2 = new WriteTaskS7(Integer.parseInt(databloc), 2, 8);
         writeDBB3 = new WriteTaskS7(Integer.parseInt(databloc), 3, 8);
         writeDBW24 = new WriteTaskS7(Integer.parseInt(databloc), 24, 16);
@@ -209,7 +223,6 @@ public class AutomateRegulation extends AppCompatActivity {
             client.SetConnectionType(S7.S7_BASIC);
             if (ip != null){
                 client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
-                Toast.makeText(AutomateRegulation.this, "connecté", Toast.LENGTH_SHORT).show();
             }
 
             isRunning = true;
@@ -227,6 +240,7 @@ public class AutomateRegulation extends AppCompatActivity {
                     byte[] dbw20 = new byte[2];
                     byte[] dbw22 = new byte[2];
                     int resultDbb0, resultDbb1, resultDbw16, resultDbw18, resultDbw20, resultDbw22;
+
                     resultDbb0 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 0, 8, dbb0);
                     resultDbb1 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 1, 8, dbb1);
                     resultDbw16 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 16, 2, dbw16);
