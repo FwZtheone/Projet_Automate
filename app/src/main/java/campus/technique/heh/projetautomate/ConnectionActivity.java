@@ -1,26 +1,31 @@
 package campus.technique.heh.projetautomate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
 
 
 
 
+
+
+
+
+
+
 public class ConnectionActivity extends AppCompatActivity  implements View.OnClickListener{
 
+
+   private String permissionShowUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,21 +90,25 @@ public class ConnectionActivity extends AppCompatActivity  implements View.OnCli
                     String status = res.getString(res.getColumnIndex("STATUS"));
                     if(status.equals("SUPERROOT"))
                     {
-                        Intent intent = new Intent(this,BoardSuperAdActivity.class);
+                        permissionShowUser = "1";
+                        Intent intent = new Intent(this,UserActivity.class);
                         intent.putExtra("user_email",edit_text_email_string);
                         intent.putExtra("user_password",edit_text_password_string);
+                        intent.putExtra("permissionShowUser", permissionShowUser);
                         startActivity(intent);
                         finish();
 
                     }
                     else{
-                        
-                   
+
+                        permissionShowUser ="0";
                    Intent intent = new Intent(this,UserActivity.class);
                    intent.putExtra("user_email",edit_text_email_string);
                    intent.putExtra("user_password",edit_text_password_string);
+                   intent.putExtra("permissionShowUser", permissionShowUser);
 
-                    startActivity(intent);
+
+                        startActivity(intent);
                     finish();
                     }
                 }

@@ -1,7 +1,5 @@
 package campus.technique.heh.projetautomate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,9 +10,10 @@ import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -25,6 +24,7 @@ public class UserActivity extends AppCompatActivity {
 
     //btn lecture
     private Button btn_lecture ;
+
 
 
 
@@ -40,13 +40,12 @@ public class UserActivity extends AppCompatActivity {
     private ConnectivityManager connexStatus;
 
 
+    private String user_ecriture;
 
-    private ReadTS7 rest1;
-
+    private String  user_ecritre_col;
 
 
     //variable qui récupére les données de l'automate (1)
-    static TextView tv_liquide_plc;
 
 
     @Override
@@ -55,12 +54,7 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         Intent intent = getIntent();
 
-        //variable qui récupére les données de l'automate (2)
         bt_main_ConnexS7 = (Button)findViewById(R.id.button_showAutomate);
-        tv_main_plc= (TextView)findViewById(R.id.tv_main_plc);
-        tv_liquide_plc = (TextView)findViewById(R.id.tv_liquide_plc);
-
-
 
         connexStatus= (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         network = connexStatus.getActiveNetworkInfo();
@@ -88,7 +82,8 @@ public class UserActivity extends AppCompatActivity {
 
                 String user_email = res.getString(res.getColumnIndex("EMAIL"));
                 password = intent.getStringExtra("user_password");
-                String user_ecriture = res.getString(res.getColumnIndex("ECRITURE"));
+                 user_ecriture = res.getString(res.getColumnIndex("ECRITURE"));
+                 user_ecritre_col = user_ecriture;
                 //modification de l'affichage du mode écriture
                 if(user_ecriture.equals("0")){
                     user_ecriture = "lecture";
@@ -112,11 +107,21 @@ public class UserActivity extends AppCompatActivity {
 
 
 
+        String permissionShowUser = intent.getStringExtra("permissionShowUser");
+
+        showBtnShowUser(permissionShowUser);
 
 
     }
 
 
+    public void showBtnShowUser(String permission){
+        View btn_showUser = (Button)findViewById(R.id.button_show_user);
+
+        if(permission.equals("0")){
+                    btn_showUser.setVisibility(View.GONE);
+        }
+    }
 
 
 
@@ -138,36 +143,25 @@ public class UserActivity extends AppCompatActivity {
             case R.id.button_showAutomate:
                 if(network != null && network.isConnectedOrConnecting()) {
                     if (bt_main_ConnexS7.getText().equals("Connexion_S7")) {
-                        Toast.makeText(this, network.getTypeName(), Toast.LENGTH_SHORT).show();
-                        bt_main_ConnexS7.setText("Déconnexion_S7");
-
-                        if (edit_ip_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals("")){
-                            Toast.makeText(this, "un champ manquant !", Toast.LENGTH_SHORT).show();
-                    }
-                        
-                        else{
-
+                            bt_main_ConnexS7.setText("Déconnexion_S7");
                             Intent intent = new Intent(this, AutomateRegulation.class);
                             intent.putExtra("ip", edit_ip_string);
                             intent.putExtra("rack", edit_rack_string);
-
                             intent.putExtra("slot", edit_slot_string);
+                            intent.putExtra("permissionEcriture",user_ecritre_col);
 
                             startActivity(intent);
-                        }
-
-
 
 
 
                 }
                     else{
-
-                        if(AutomateRegulation.rest1 != null){
-                            AutomateRegulation.rest1.Stop();
-                            bt_main_ConnexS7.setText("Connexion_S7");
-                            Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
-                        }
+//
+//                        if(AutomateRegulation.rest1 != null){
+//                            AutomateRegulation.rest1.Stop();
+//                            bt_main_ConnexS7.setText("Connexion_S7");
+//                            Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
+//                        }
 
 
                     bt_main_ConnexS7.setText("Connexion_S7");
@@ -186,8 +180,21 @@ public class UserActivity extends AppCompatActivity {
         }
 
     }
-    
-    
+
+
+
+    public void onShowUser(View v)throws  NoSuchAlgorithmException{
+        switch (v.getId()){
+            case R.id.button_show_user:
+                Intent intent = new Intent(this,ShowUser.class);
+                startActivity(intent);
+
+
+            default:
+                break;
+
+        }
+    }
 
 
 

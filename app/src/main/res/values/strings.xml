@@ -4,4 +4,26 @@
     <string name="title_user">
         &lt;u>Compte Utilisateur&lt;/u>
     </string>
+
+
+    <string name="On">ON</string>
+    <string name="Off">OFF</string>
+
+    <string name="Manuel">Manuel</string>
+    <string name="Automatique">Automatique</string>
+    <string name="plc">PLC :</string>
+    <string name="button_valve_1">Bouton valve 1</string>
+    <string name="button_valve_2">Boutton valve 2</string>
+    <string name="button_valve_3">Bouton valve 3</string>
+    <string name="button_valve_4">Bouton valve 4</string>
+    <string name="manual">Manuel</string>
+    <string name="local_distant">Local/Distant</string>
+    <string name="valve_1">Valve 1</string>
+    <string name="valve_2">Valve 2</string>
+    <string name="valve_3">Valve 3</string>
+    <string name="valve_4">Valve 4</string>
+    <string name="liquid_level">Niveau de liquide</string>
+    <string name="pilot_word">Pilot word</string>
+    <string name="errConnectionLost">Connexion perdue</string>
+    <string name="ValveNumber">Vanne no%1$d</string>
 </resources>
