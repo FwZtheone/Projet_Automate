@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Informations"
+        android:text="Menu"
+        android:textSize="15dp"
         android:textFontWeight="2"
         />
     <LinearLayout
@@ -32,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:textStyle="bold|italic"
             android:layout_marginBottom="10dp"
             android:text="Login : "/>
     </LinearLayout>
@@ -45,9 +48,10 @@
         <TextView
             android:id="@+id/TextView_user_email"
             android:layout_width="match_parent"
+            android:textSize="15dp"
             android:layout_height="wrap_content"
+            android:textStyle="bold|italic"
             android:layout_marginBottom="10dp"
-
             android:text="Email : "/>
     </LinearLayout>
     <LinearLayout
@@ -58,7 +62,9 @@
         <TextView
             android:id="@+id/TextView_user_password"
             android:layout_width="match_parent"
+            android:textSize="15dp"
             android:layout_height="wrap_content"
+            android:textStyle="bold|italic"
             android:layout_marginBottom="10dp"
             android:text="mot de passe : "/>
     </LinearLayout>
@@ -73,6 +79,8 @@
             android:id="@+id/TextView_user_ecriture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="bold|italic"
             android:layout_marginBottom="10dp"
             android:text="Ecriture : "/>
     </LinearLayout>
@@ -103,6 +111,15 @@
 
         </EditText>
 
+        <EditText
+            android:id="@+id/edit_text_databloc"
+            android:layout_width="100dp"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:text="5">
+
+        </EditText>
+
 
 
 
@@ -117,8 +134,8 @@
         <Button
             android:id="@+id/button_showAutomate"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Connexion_S7"
+            android:layout_height="100dp"
+            android:text="Connexion_AutomateLiquide"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@drawable/mybutton"
@@ -129,7 +146,7 @@
         <Button
             android:id="@+id/button_deco"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:text="Déconnexion session"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
@@ -142,7 +159,7 @@
         <Button
             android:id="@+id/button_show_user"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:text="Show user"
             android:background="@drawable/mybutton"
             android:textColor="#ffff"

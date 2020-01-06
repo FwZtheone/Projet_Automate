@@ -42,10 +42,13 @@ public class UserActivity extends AppCompatActivity {
 
     private String user_ecriture;
 
-    private String  user_ecritre_col;
+    private String  user_ecritureOnAutomate;
 
+
+    private EditText edit_databloc;
 
     //variable qui récupére les données de l'automate (1)
+
 
 
     @Override
@@ -83,7 +86,7 @@ public class UserActivity extends AppCompatActivity {
                 String user_email = res.getString(res.getColumnIndex("EMAIL"));
                 password = intent.getStringExtra("user_password");
                  user_ecriture = res.getString(res.getColumnIndex("ECRITURE"));
-                 user_ecritre_col = user_ecriture;
+                user_ecritureOnAutomate = user_ecriture;
                 //modification de l'affichage du mode écriture
                 if(user_ecriture.equals("0")){
                     user_ecriture = "lecture";
@@ -104,6 +107,7 @@ public class UserActivity extends AppCompatActivity {
             }
 
         }
+
 
 
 
@@ -129,26 +133,29 @@ public class UserActivity extends AppCompatActivity {
 
     public void onShowAutomate(View v) throws NoSuchAlgorithmException{
 
-        //récupération des valeurs des edits text rack,slot,ip
+        //récupération des valeurs des edits text rack,slot,ip,Databloc
         edit_ip = (EditText)findViewById(R.id.edit_text_ip);
         edit_rack = (EditText)findViewById(R.id.edit_text_rack);
         edit_slot = (EditText)findViewById(R.id.edit_text_slot);
+        edit_databloc = (EditText)findViewById(R.id.edit_text_databloc);
 
         //je récupére la valeur en string des edits text ip,rack,slot
 
         String edit_ip_string = edit_ip.getText().toString();
         String edit_rack_string = edit_rack.getText().toString();
         String edit_slot_string = edit_slot.getText().toString();
+        String edit_databloc_string = edit_databloc.getText().toString();
         switch (v.getId()){
             case R.id.button_showAutomate:
                 if(network != null && network.isConnectedOrConnecting()) {
-                    if (bt_main_ConnexS7.getText().equals("Connexion_S7")) {
-                            bt_main_ConnexS7.setText("Déconnexion_S7");
+                    if (bt_main_ConnexS7.getText().equals("Connexion_AutomateLiquide")) {
+                            bt_main_ConnexS7.setText("Déconnexion_AutomateLiquide");
                             Intent intent = new Intent(this, AutomateRegulation.class);
                             intent.putExtra("ip", edit_ip_string);
                             intent.putExtra("rack", edit_rack_string);
                             intent.putExtra("slot", edit_slot_string);
-                            intent.putExtra("permissionEcriture",user_ecritre_col);
+                            intent.putExtra("permissionEcriture",user_ecritureOnAutomate);
+                            intent.putExtra("databloc",edit_databloc_string);
 
                             startActivity(intent);
 
@@ -156,15 +163,9 @@ public class UserActivity extends AppCompatActivity {
 
                 }
                     else{
-//
-//                        if(AutomateRegulation.rest1 != null){
-//                            AutomateRegulation.rest1.Stop();
-//                            bt_main_ConnexS7.setText("Connexion_S7");
-//                            Toast.makeText(getApplication(), "Traitement interrompu par l'utilisateur !!! ", Toast.LENGTH_LONG).show();
-//                        }
 
 
-                    bt_main_ConnexS7.setText("Connexion_S7");
+                    bt_main_ConnexS7.setText("Connexion_AutomateLiquide");
 
                 }
                 }

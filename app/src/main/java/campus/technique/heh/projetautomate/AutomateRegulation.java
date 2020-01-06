@@ -89,6 +89,12 @@ public class AutomateRegulation extends AppCompatActivity {
     private ConnectivityManager connectivityManager;
     private NetworkInfo networkInfo;
 
+
+
+
+
+
+
     private byte[] word = new byte[16];
 
     private Handler handler = new Handler();
@@ -101,7 +107,7 @@ public class AutomateRegulation extends AppCompatActivity {
         }
     };
 
-    private InfosReader infosReader;
+    private InfoLecture InfoLecture;
     private boolean pause;
 
     @Override
@@ -132,7 +138,7 @@ public class AutomateRegulation extends AppCompatActivity {
         ViewGroup parent = (ViewGroup) pb_level_S7.getParent();
         View view = getLayoutInflater().inflate(R.layout.niveau_lecture, parent, false);
         parent.addView(view);
-        initMainComponents();
+        InitiationDesComposantsMains();
 
         if (ecriturePermission.equals("1"))
             btn_level_write.setVisibility(View.VISIBLE);
@@ -148,21 +154,20 @@ public class AutomateRegulation extends AppCompatActivity {
 
            rack =intent.getStringExtra("rack");
            slot = intent.getStringExtra("slot");
-        databloc = "5";
-        Toast.makeText(this, databloc, Toast.LENGTH_SHORT).show();
+
 
         tv_level_automateName.setText("Automate Liquide ");
 
 //        Toast.makeText(this, ip + " :"  + rack + " : " + slot, Toast.LENGTH_SHORT).show();
-        int databloc = 5;
+        databloc = intent.getStringExtra("databloc");
         readS7 = new ReadTaskS7(pb_level_S7, tv_level_plc);
         readS7.Start(ip, String.valueOf(rack), String.valueOf(slot));
-        writeDBB2 = new WriteTaskS7(databloc, 2, 8);
-        writeDBB3 = new WriteTaskS7(databloc, 3, 8);
-        writeDBW24 = new WriteTaskS7(databloc, 24, 16);
-        writeDBW26 = new WriteTaskS7(databloc, 26, 16);
-        writeDBW28 = new WriteTaskS7(databloc, 28, 16);
-        writeDBW30 = new WriteTaskS7(databloc, 30, 16);
+        writeDBB2 = new WriteTaskS7(Integer.parseInt(databloc), 2, 8);
+        writeDBB3 = new WriteTaskS7(Integer.parseInt(databloc), 3, 8);
+        writeDBW24 = new WriteTaskS7(Integer.parseInt(databloc), 24, 16);
+        writeDBW26 = new WriteTaskS7(Integer.parseInt(databloc), 26, 16);
+        writeDBW28 = new WriteTaskS7(Integer.parseInt(databloc), 28, 16);
+        writeDBW30 = new WriteTaskS7(Integer.parseInt(databloc), 30, 16);
         writeDBB2.start(ip, rack, slot);
         writeDBB3.start(ip, rack, slot);
         writeDBW24.start(ip, rack, slot);
@@ -171,11 +176,11 @@ public class AutomateRegulation extends AppCompatActivity {
         writeDBW30.start(ip, rack, slot);
 
         pause = false;
-        infosReader = new InfosReader();
-        infosReader.execute("");
+        InfoLecture = new InfoLecture();
+        InfoLecture.execute("");
     }
 
-    private class InfosReader extends AsyncTask<String, Integer, String> {
+    private class InfoLecture extends AsyncTask<String, Integer, String> {
 
         private S7Client client;
 
@@ -193,7 +198,7 @@ public class AutomateRegulation extends AppCompatActivity {
         private String setpointManual;
         private String wordOfValvePilot;
 
-        InfosReader() {
+        InfoLecture() {
             client = new S7Client();
             isRunning = false;
         }
@@ -222,13 +227,12 @@ public class AutomateRegulation extends AppCompatActivity {
                     byte[] dbw20 = new byte[2];
                     byte[] dbw22 = new byte[2];
                     int resultDbb0, resultDbb1, resultDbw16, resultDbw18, resultDbw20, resultDbw22;
-                    int databloc = 5;
-                    resultDbb0 = client.ReadArea(S7.S7AreaDB, databloc, 0, 8, dbb0);
-                    resultDbb1 = client.ReadArea(S7.S7AreaDB, databloc, 1, 8, dbb1);
-                    resultDbw16 = client.ReadArea(S7.S7AreaDB, databloc, 16, 2, dbw16);
-                    resultDbw18 = client.ReadArea(S7.S7AreaDB, databloc, 18, 2, dbw18);
-                    resultDbw20 = client.ReadArea(S7.S7AreaDB, databloc, 20, 2, dbw20);
-                    resultDbw22 = client.ReadArea(S7.S7AreaDB, databloc, 22, 2, dbw22);
+                    resultDbb0 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 0, 8, dbb0);
+                    resultDbb1 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 1, 8, dbb1);
+                    resultDbw16 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 16, 2, dbw16);
+                    resultDbw18 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 18, 2, dbw18);
+                    resultDbw20 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 20, 2, dbw20);
+                    resultDbw22 = client.ReadArea(S7.S7AreaDB, Integer.parseInt(databloc), 22, 2, dbw22);
                     if (resultDbb0 == 0 && resultDbb1 == 0 && resultDbw16 == 0 && resultDbw18 == 0 && resultDbw20 == 0 && resultDbw22 == 0) {
                         publishProgress(S7.GetBitAt(dbb0, 0, 1) ? 1 : 0,
                                 S7.GetBitAt(dbb0, 0, 2) ? 1 : 0,
@@ -359,8 +363,8 @@ public class AutomateRegulation extends AppCompatActivity {
         writeDBW28.stop();
         writeDBW30.stop();
         handler.removeCallbacks(runnable);
-        infosReader.stop();
-        infosReader.cancel(true);
+        InfoLecture.stop();
+        InfoLecture.cancel(true);
         super.onStop();
     }
 
@@ -374,14 +378,14 @@ public class AutomateRegulation extends AppCompatActivity {
                 parent.removeView(tl_level_states);
                 view = getLayoutInflater().inflate(R.layout.niveau_ecriture, parent, false);
                 parent.addView(view);
-                initWriteComponents();
+                InitiationComposantsWrite();
                 break;
             case R.id.btn_level_goBack:
                 parent = (ViewGroup) btn_level_goBack.getParent().getParent();
                 parent.removeView((View) btn_level_goBack.getParent());
                 view = getLayoutInflater().inflate(R.layout.niveau_lecture, parent, false);
                 parent.addView(view);
-                initMainComponents();
+                InitiationDesComposantsMains();
                 pause = false;
                 break;
             case R.id.ch_level_dbb2_0:
@@ -435,7 +439,7 @@ public class AutomateRegulation extends AppCompatActivity {
         }
     }
 
-    private void initMainComponents() {
+    private void InitiationDesComposantsMains() {
         tl_level_states = findViewById(R.id.table_niveau_states);
         tv_level_mode = findViewById(R.id.tv_level_mode);
         tv_level_remoteConnection = findViewById(R.id.tv_level_remoteConnection);
@@ -458,7 +462,7 @@ public class AutomateRegulation extends AppCompatActivity {
         btn_level_write = findViewById(R.id.btn_level_write);
     }
 
-    private void initWriteComponents() {
+    private void InitiationComposantsWrite() {
         ch_level_dbb2_0 = findViewById(R.id.ch_level_dbb2_0);
         ch_level_dbb2_1 = findViewById(R.id.ch_level_dbb2_1);
         ch_level_dbb2_2 = findViewById(R.id.ch_level_dbb2_2);
