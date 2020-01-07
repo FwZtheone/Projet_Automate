@@ -30,6 +30,12 @@ public class WriteTaskS7 {
     private int start;
     private int amount;
 
+    public WriteTaskS7(){
+        comS7 = new S7Client();
+        plcS7 = new AutomateS7();
+        writeThread = new Thread(plcS7);
+    }
+
     public WriteTaskS7(int dbNumber, int start, int amount) {
         this.dbNumber = dbNumber;
         this.start = start;
@@ -99,5 +105,16 @@ public class WriteTaskS7 {
         motCommande[p] = (byte) (word >> 8);
         motCommande[p + 1] = (byte) (word & 0x00FF);
     }
+
+
+//    fonction de base
+
+
+//    public  void SetWordAt(byte[] Buffer, int Pos, int Value)
+//    {
+//        int Word = Value & 0x0FFFF;
+//        Buffer[Pos]   = (byte) (Word >> 8);
+//        Buffer[Pos+1] = (byte) (Word & 0x00FF);
+//    }
 
 }

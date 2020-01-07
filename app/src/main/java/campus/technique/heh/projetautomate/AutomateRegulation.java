@@ -96,7 +96,7 @@ public class AutomateRegulation extends AppCompatActivity {
 
 
 
-
+    private byte[] commandebuffer = new byte[16];
 
 
     private byte[] word = new byte[16];
@@ -147,8 +147,9 @@ public class AutomateRegulation extends AppCompatActivity {
         rack =intent.getStringExtra("rack");
         slot = intent.getStringExtra("slot");
         databloc = intent.getStringExtra("databloc");
-
         ecriturePermission  = intent.getStringExtra("permissionEcriture");
+
+
         Toast.makeText(this, " ip " + ip  + " slot   " + slot + " rack " + rack + " db " + databloc ,Toast.LENGTH_SHORT).show();
 
 
@@ -188,13 +189,13 @@ public class AutomateRegulation extends AppCompatActivity {
         writeDBW26 = new WriteTaskS7(Integer.parseInt(databloc), 26, 16);
         writeDBW28 = new WriteTaskS7(Integer.parseInt(databloc), 28, 16);
         writeDBW30 = new WriteTaskS7(Integer.parseInt(databloc), 30, 16);
+
         writeDBB2.start(ip, rack, slot);
         writeDBB3.start(ip, rack, slot);
         writeDBW24.start(ip, rack, slot);
         writeDBW26.start(ip, rack, slot);
         writeDBW28.start(ip, rack, slot);
         writeDBW30.start(ip, rack, slot);
-        writeDBW28.setWordAt(0,50);
         pause = false;
         InfoLecture = new InfoLecture();
         InfoLecture.execute();
@@ -230,10 +231,7 @@ public class AutomateRegulation extends AppCompatActivity {
         private String vanne2;
         private String vanne3;
         private String vanne4;
-        private String liquidLevel;
-        private String setpointAuto;
-        private String setpointManual;
-        private String wordOfValvePilot;
+
 
 
 
@@ -250,13 +248,18 @@ public class AutomateRegulation extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //retourne 1 si connexion réussie !
             client.SetConnectionType(S7.S7_BASIC);
             if (ip != null){
-                int result = client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
-                    client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
-                    isRunning = true;
-                Toast.makeText(AutomateRegulation.this, " resultat de connexion réussie ou pas : " + String.valueOf(result), Toast.LENGTH_SHORT).show();
+                Integer result = client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
+                if(result.equals(1)){
+                    cancel(true);
+                    btn_level_write.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    client.ConnectTo(ip,Integer.valueOf(rack), Integer.valueOf(slot));
+                    isRunning=true;
+                }
+
 
             }
 
@@ -381,10 +384,6 @@ public class AutomateRegulation extends AppCompatActivity {
             else
                 remoteConnection = resources.getString(R.string.Off);
 
-            liquidLevel = String.valueOf(values[6]);
-            setpointAuto = String.valueOf(values[7]);
-            setpointManual = String.valueOf(values[8]);
-            wordOfValvePilot = String.valueOf(values[9]);
             updateView();
         }
 
@@ -547,6 +546,8 @@ public class AutomateRegulation extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
                     writeDBW24.setWordAt(0, Integer.parseInt(charSequence.toString()));
+                    Toast.makeText(AutomateRegulation.this,charSequence.toString() , Toast.LENGTH_SHORT).show();
+
                 } catch (NumberFormatException nFE) {
                     nFE.printStackTrace();
                 }

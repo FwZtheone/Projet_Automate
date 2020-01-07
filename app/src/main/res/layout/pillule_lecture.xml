@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/tl_pill_states"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginEnd="60dp"
+android:layout_marginStart="60dp"
+android:stretchColumns="1"
+android:visibility="visible">
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="En service"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_runState"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Nombre de flacon"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_genBottlesState"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Connexion à distance"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_localRemote"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Bouchonne"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_enginePill"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Moteur (distributeur)"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_engineStrip"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Moteur (bande)"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_plug"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="20dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Pilules"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_bottleNumber"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Demande de pilule "
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_pillAsk"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<TableRow android:layout_marginBottom="15dp">
+
+    <TextView
+        android:layout_column="1"
+        android:text="Flacons"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/tv_pill_pillNumber"
+        android:gravity="end"
+        android:textSize="15sp" />
+
+</TableRow>
+
+<Button
+    android:id="@+id/btn_pill_write"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginStart="30dp"
+    android:text="écrire" />
+
+</TableLayout>
