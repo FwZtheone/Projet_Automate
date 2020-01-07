@@ -194,7 +194,7 @@ public class AutomateRegulation extends AppCompatActivity {
         writeDBW26.start(ip, rack, slot);
         writeDBW28.start(ip, rack, slot);
         writeDBW30.start(ip, rack, slot);
-
+        writeDBW28.setWordAt(0,50);
         pause = false;
         InfoLecture = new InfoLecture();
         InfoLecture.execute();
@@ -235,6 +235,13 @@ public class AutomateRegulation extends AppCompatActivity {
         private String setpointManual;
         private String wordOfValvePilot;
 
+
+
+        int dataLiquide ;
+        int dataConsigneAuto;
+        int dataConsigneManu;
+        int dataMotPilotage;
+
         InfoLecture() {
             client = new S7Client();
             isRunning = false;
@@ -249,11 +256,10 @@ public class AutomateRegulation extends AppCompatActivity {
                 int result = client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
                     client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
                     isRunning = true;
-                Toast.makeText(AutomateRegulation.this, String.valueOf(result), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AutomateRegulation.this, " resultat de connexion réussie ou pas : " + String.valueOf(result), Toast.LENGTH_SHORT).show();
 
             }
 
-//            isRunning = true;
         }
 
         @Override
@@ -292,6 +298,10 @@ public class AutomateRegulation extends AppCompatActivity {
                                 S7.GetWordAt(dbw20, 0),
                                 S7.GetWordAt(dbw22, 0)
                         );
+                         dataLiquide = S7.GetWordAt(dbw16,0);
+                         dataConsigneAuto = S7.GetWordAt(dbw18,0);
+                         dataConsigneManu = S7.GetWordAt(dbw20,0);
+                         dataMotPilotage = S7.GetWordAt(dbw22,0);
                     }
                     SystemClock.sleep(50);
                 }
@@ -332,10 +342,11 @@ public class AutomateRegulation extends AppCompatActivity {
                 tv_level_remoteConnection.setTextColor(resources.getColor(R.color.red));
             tv_level_remoteConnection.setText(remoteConnection);
 
-            tv_level_liquidLevel.setText(liquidLevel);
-            tv_level_setpointAuto.setText(setpointAuto);
-            tv_level_setpointManual.setText(setpointManual);
-            tv_level_wordOfValvePilot.setText(wordOfValvePilot);
+
+            tv_level_liquidLevel.setText(String.valueOf(dataLiquide));
+            tv_level_setpointAuto.setText(String.valueOf(dataConsigneAuto));
+            tv_level_setpointManual.setText(String.valueOf(dataConsigneManu));
+            tv_level_wordOfValvePilot.setText(String.valueOf(dataMotPilotage));
         }
 
         @Override
@@ -555,7 +566,7 @@ public class AutomateRegulation extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    writeDBW26.setWordAt(0, 50);
+                    writeDBW26.setWordAt(0, Integer.parseInt(charSequence.toString()));
                 } catch (NumberFormatException error) {
                     error.printStackTrace();
                 }
