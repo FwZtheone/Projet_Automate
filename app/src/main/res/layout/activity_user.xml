@@ -135,7 +135,7 @@
             android:id="@+id/button_showAutomate"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="Connexion_AutomateLiquide"
+            android:text="connexion automate liquide"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@drawable/mybutton"
@@ -171,6 +171,16 @@
     </LinearLayout>
 
 
+    <Button
+        android:id="@+id/button_showComprime"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="connexion automate comprime"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/mybutton"
+        android:textColor="#ffff"
+        android:onClick="onShowAutomate"
+        android:layout_marginLeft="5dp"/>
 
 
 

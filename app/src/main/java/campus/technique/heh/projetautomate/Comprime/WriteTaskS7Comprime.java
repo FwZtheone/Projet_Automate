@@ -1,4 +1,5 @@
-package campus.technique.heh.projetautomate;
+package campus.technique.heh.projetautomate.Comprime;
+
 import android.os.SystemClock;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -6,17 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import campus.technique.heh.projetautomate.simatic_s7.S7;
 import campus.technique.heh.projetautomate.simatic_s7.S7Client;
 
-
-/*
-
-
-        Villani Fabrizio
-
-
- */
-
-public class WriteTaskS7 {
-
+public class WriteTaskS7Comprime {
     private AtomicBoolean isRunning = new AtomicBoolean(false);
 
     private Thread writeThread;
@@ -24,19 +15,28 @@ public class WriteTaskS7 {
 
     private S7Client comS7;
     private String[] parConnexion = new String[10];
-    public byte[] motCommande;
+    public byte[] motCommande = new byte[12];
 
     private int dbNumber;
     private int start;
     private int amount;
 
-    public WriteTaskS7(){
+
+
+
+
+
+
+
+
+
+    public WriteTaskS7Comprime(){
         comS7 = new S7Client();
         plcS7 = new AutomateS7();
         writeThread = new Thread(plcS7);
     }
 
-    public WriteTaskS7(int dbNumber, int start, int amount) {
+    public WriteTaskS7Comprime(int dbNumber, int start, int amount) {
         this.dbNumber = dbNumber;
         this.start = start;
         this.amount = amount;
@@ -116,5 +116,6 @@ public class WriteTaskS7 {
         Buffer[Pos]   = (byte) (Word >> 8);
         Buffer[Pos+1] = (byte) (Word & 0x00FF);
     }
+
 
 }

@@ -1,26 +1,20 @@
 package campus.technique.heh.projetautomate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
@@ -65,7 +59,7 @@ public class ShowUser extends AppCompatActivity {
             Cursor res = mydb.getContact("*",tableau_user.get(index));
             res.moveToFirst();
             data_email.add(res.getString(res.getColumnIndex("EMAIL")));
-            data_login.add(res.getString(res.getColumnIndex("LOGIN")));
+            data_login.add(res.getString(res.getColumnIndex("NOM")));
             data_ecriture.add(res.getString(res.getColumnIndex("ECRITURE")));
             res.close();
             //création de la ligne pour afficher les users

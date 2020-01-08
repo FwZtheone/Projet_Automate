@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".Regulation.AutomateRegulation">
+    tools:context=".Comprime.AutomateComprimeRead">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             android:layout_width="match_parent"
             android:text="REF"
             android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
+            android:textAlignment="center"
             android:layout_height="wrap_content">
 
         </TextView>
@@ -43,7 +45,7 @@
         </ProgressBar>
     </LinearLayout>
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:id="@+id/table_niveau_states"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,12 +58,12 @@
 
             <TextView
                 android:layout_column="1"
-                android:text="Mode"
+                android:text="En service"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_liquide_mode"
+                android:id="@+id/txt_service"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -76,7 +78,7 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_liquide_distance"
+                android:id="@+id/txt_comprime_distance"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -85,14 +87,14 @@
         <TableRow android:layout_marginBottom="7dp">
 
             <TextView
-                android:id="@+id/tv_level_vanne1Label"
+                android:id="@+id/nb_flacons"
                 android:layout_column="1"
-                android:text="Vanne N°1"
+                android:text="Gen flacons"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_vanne1"
+                android:id="@+id/txt_gen_flacons"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -101,14 +103,14 @@
         <TableRow android:layout_marginBottom="7dp">
 
             <TextView
-                android:id="@+id/tv_level_vanne2Label"
+                android:id="@+id/tv_distrib"
                 android:layout_column="1"
-                android:text="Vanne N°2"
+                android:text="Moteur distributeur"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_vanne2"
+                android:id="@+id/txt_moteur_distrib"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -117,14 +119,14 @@
         <TableRow android:layout_marginBottom="7dp">
 
             <TextView
-                android:id="@+id/tv_level_vanne3Label"
+                android:id="@+id/tv_moteur_bande"
                 android:layout_column="1"
-                android:text="Vanne N°3"
+                android:text="Moteur bande"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_vanne3"
+                android:id="@+id/txt_moteur_bande"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -133,14 +135,14 @@
         <TableRow android:layout_marginBottom="7dp">
 
             <TextView
-                android:id="@+id/tv_level_vanne4Label"
+                android:id="@+id/tv_bouchonne"
                 android:layout_column="1"
-                android:text="Vanne N°4"
+                android:text="bouchonne"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_vanne4"
+                android:id="@+id/txt_bouchonne"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -153,12 +155,12 @@
 
             <TextView
                 android:layout_column="1"
-                android:text="Niveau de liquide"
+                android:text="Nombre de flacons"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_liquide_lvl"
+                android:id="@+id/txt_nb_flacons"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -168,12 +170,12 @@
 
             <TextView
                 android:layout_column="1"
-                android:text="Consigne automatique"
+                android:text="Pilule demandée"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_consigne_auto"
+                android:id="@+id/txt_pilule_dem"
                 android:gravity="end"
                 android:textSize="15sp" />
 
@@ -183,35 +185,22 @@
 
             <TextView
                 android:layout_column="1"
-                android:text="Consigne manuelle"
+                android:text="Pilules"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/txt_consigne_m"
+                android:id="@+id/txt_pilule"
                 android:gravity="end"
                 android:textSize="15sp" />
 
         </TableRow>
 
-        <TableRow android:layout_marginBottom="14dp">
 
-            <TextView
-                android:layout_column="1"
-                android:text="Mot de pilotage vanne"
-                android:textSize="15sp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/txt_pilotage_vanne"
-                android:gravity="end"
-                android:textSize="15sp" />
-
-        </TableRow>
 
         <Button
 
-            android:id="@+id/btn_level_write"
+            android:id="@+id/btn_comp_write"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -219,7 +208,7 @@
             android:background="@drawable/mybutton"
             android:textColor="#ffff"
             android:layout_marginStart="30dp"
-            android:onClick="onWriteRegulation"
+            android:onClick="onWriteComprime"
             android:text="écrire" />
 
     </TableLayout>

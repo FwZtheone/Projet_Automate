@@ -11,6 +11,7 @@ android:visibility="visible">
 <TableRow android:layout_marginBottom="10dp">
 
     <TextView
+
         android:layout_column="1"
         android:text="En service"
         android:textSize="15sp"

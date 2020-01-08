@@ -17,13 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
 
+import campus.technique.heh.projetautomate.Comprime.AutomateComprimeRead;
+import campus.technique.heh.projetautomate.Regulation.AutomateRegulation;
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
 
 public class UserActivity extends AppCompatActivity {
 
 
     //btn lecture
-    private Button btn_lecture ;
+    private Button btn_comprime_co ;
 
 
 
@@ -58,6 +60,7 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         bt_main_ConnexS7 = (Button)findViewById(R.id.button_showAutomate);
+        btn_comprime_co = (Button)findViewById(R.id.button_showComprime);
 
         connexStatus= (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -75,7 +78,7 @@ public class UserActivity extends AppCompatActivity {
 
                 Cursor res = mydb.getContact("*",email);
                 res.moveToFirst();
-                String login = res.getString(res.getColumnIndex("LOGIN"));
+                String login = res.getString(res.getColumnIndex("NOM"));
                 TextView textView = (TextView) findViewById(R.id.text_view_title);
                 textView.setText(Html.fromHtml(getString(R.string.title_user)));
                 textView_user.append(login);
@@ -150,15 +153,14 @@ public class UserActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.button_showAutomate:
                 if(network != null && network.isConnectedOrConnecting()) {
-                    Toast.makeText(this,edit_ip_string + " " + edit_rack_string + " "+ edit_slot_string + " " + edit_databloc_string, Toast.LENGTH_SHORT).show();
                     if(edit_ip_string.equals("") || edit_databloc_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals(""))
                     {
                         Toast.makeText(this, "Un champ manquant ! ", Toast.LENGTH_SHORT).show();
 
                     }
                     else{
-                        if (bt_main_ConnexS7.getText().equals("Connexion_AutomateLiquide")) {
-                            bt_main_ConnexS7.setText("Déconnexion_AutomateLiquide");
+                        if (bt_main_ConnexS7.getText().equals("connexion automate liquide")) {
+                            bt_main_ConnexS7.setText("deconnexion automate liquide");
                             Intent intent = new Intent(this, AutomateRegulation.class);
                             intent.putExtra("ip", edit_ip_string);
                             intent.putExtra("rack", edit_rack_string);
@@ -171,13 +173,45 @@ public class UserActivity extends AppCompatActivity {
 
 
                         }
-                        else{ bt_main_ConnexS7.setText("Connexion_AutomateLiquide"); }
+                        else{ bt_main_ConnexS7.setText("connexion automate liquide"); }
                     }
                 }
               
 
                 else
                     {
+                    Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.button_showComprime:
+                if(network != null && network.isConnectedOrConnecting()) {
+                    if(edit_ip_string.equals("") || edit_databloc_string.equals("") || edit_rack_string.equals("") || edit_slot_string.equals(""))
+                    {
+                        Toast.makeText(this, "Un champ manquant ! ", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        if (btn_comprime_co.getText().equals("connexion automate comprime")) {
+                            btn_comprime_co.setText("deconnexion automate comprime");
+                            Intent intent = new Intent(this, AutomateComprimeRead.class);
+                            intent.putExtra("ip", edit_ip_string);
+                            intent.putExtra("rack", edit_rack_string);
+                            intent.putExtra("slot", edit_slot_string);
+                            intent.putExtra("permissionEcriture",user_ecritureOnAutomate);
+                            intent.putExtra("databloc",edit_databloc_string);
+
+                            startActivity(intent);
+
+
+                        }
+                        else{ btn_comprime_co.setText("connexion automate comprime"); }
+                    }
+                }
+
+
+                else
+                {
                     Toast.makeText(this,"! Connexion réseau IMPOSSIBLE !",Toast.LENGTH_SHORT).show();
                 }
                 break;

@@ -1,15 +1,13 @@
 package campus.technique.heh.projetautomate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -109,9 +107,12 @@ public class InscriptionActivity extends AppCompatActivity {
     public void onClickInscription(View v){
         switch (v.getId()){
             case R.id.valider:
-                //login
+                //login --> prenom
                 EditText edit_text_login = (EditText) findViewById(R.id.edit_Login_inscription);
                 String edit_text_login_string = edit_text_login.getText().toString().toLowerCase();
+
+                EditText edit_text_prenom  =(EditText) findViewById(R.id.edit_prenom_inscription);
+                String edit_text_prenom_string = edit_text_prenom.getText().toString().toLowerCase();
                 //password
                 EditText edit_text_password  = findViewById(R.id.edit_password_inscription);
                 String edit_text_password_string = edit_text_password.getText().toString();
@@ -137,7 +138,7 @@ public class InscriptionActivity extends AppCompatActivity {
                             Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
                             DatabaseHelper mydb = new DatabaseHelper(this);
                             try{
-                                mydb.insertContact(edit_text_login_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"BASIC" ,false);
+                                mydb.insertContact(edit_text_login_string, edit_text_prenom_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"BASIC" ,false);
                                 finish();
                                 Intent connection  = new Intent(this,ConnectionActivity.class);
                                 startActivity(connection);

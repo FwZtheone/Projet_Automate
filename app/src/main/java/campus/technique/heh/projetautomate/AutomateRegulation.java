@@ -95,6 +95,7 @@ public class AutomateRegulation extends AppCompatActivity {
 
 
 
+    private S7Client comS7;
 
     private byte[] commandebuffer = new byte[16];
 
@@ -126,6 +127,7 @@ public class AutomateRegulation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automate_regulation);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -150,7 +152,6 @@ public class AutomateRegulation extends AppCompatActivity {
         ecriturePermission  = intent.getStringExtra("permissionEcriture");
 
 
-        Toast.makeText(this, " ip " + ip  + " slot   " + slot + " rack " + rack + " db " + databloc ,Toast.LENGTH_SHORT).show();
 
 
 
@@ -178,7 +179,6 @@ public class AutomateRegulation extends AppCompatActivity {
 
         tv_level_automateName.setText("Automate Liquide ");
 
-//        Toast.makeText(this, ip + " :"  + rack + " : " + slot, Toast.LENGTH_SHORT).show();
 
 
         readS7 = new ReadTaskS7(pb_level_S7, tv_level_plc);
@@ -190,15 +190,46 @@ public class AutomateRegulation extends AppCompatActivity {
         writeDBW28 = new WriteTaskS7(Integer.parseInt(databloc), 28, 16);
         writeDBW30 = new WriteTaskS7(Integer.parseInt(databloc), 30, 16);
 
+
+
+
+
+
+
         writeDBB2.start(ip, rack, slot);
         writeDBB3.start(ip, rack, slot);
         writeDBW24.start(ip, rack, slot);
         writeDBW26.start(ip, rack, slot);
         writeDBW28.start(ip, rack, slot);
         writeDBW30.start(ip, rack, slot);
+
+
+
         pause = false;
         InfoLecture = new InfoLecture();
         InfoLecture.execute();
+
+        ch_level_dbb2_0 = findViewById(R.id.ch_level_dbb2_0);
+        ch_level_dbb2_1 = findViewById(R.id.ch_level_dbb2_1);
+        ch_level_dbb2_2 = findViewById(R.id.ch_level_dbb2_2);
+        ch_level_dbb2_3 = findViewById(R.id.ch_level_dbb2_3);
+        ch_level_dbb2_4 = findViewById(R.id.ch_level_dbb2_4);
+        ch_level_dbb2_5 = findViewById(R.id.ch_level_dbb2_5);
+        ch_level_dbb2_6 = findViewById(R.id.ch_level_dbb2_6);
+        ch_level_dbb2_7 = findViewById(R.id.ch_level_dbb2_7);
+        ch_level_dbb3_0 = findViewById(R.id.ch_level_dbb3_0);
+        ch_level_dbb3_1 = findViewById(R.id.ch_level_dbb3_1);
+        ch_level_dbb3_2 = findViewById(R.id.ch_level_dbb3_2);
+        ch_level_dbb3_3 = findViewById(R.id.ch_level_dbb3_3);
+        ch_level_dbb3_4 = findViewById(R.id.ch_level_dbb3_4);
+        ch_level_dbb3_5 = findViewById(R.id.ch_level_dbb3_5);
+        ch_level_dbb3_6 = findViewById(R.id.ch_level_dbb3_6);
+        ch_level_dbb3_7 = findViewById(R.id.ch_level_dbb3_7);
+        et_level_dbw24 = findViewById(R.id.et_level_dbw24);
+        et_level_dbw26 = findViewById(R.id.et_level_dbw26);
+        et_level_dbw28 = findViewById(R.id.et_level_dbw28);
+        et_level_dbw30 = findViewById(R.id.et_level_dbw30);
+
 
 
 
@@ -251,10 +282,12 @@ public class AutomateRegulation extends AppCompatActivity {
             client.SetConnectionType(S7.S7_BASIC);
             if (ip != null){
                 Integer result = client.ConnectTo(ip, Integer.valueOf(rack), Integer.valueOf(slot));
+                // 1 = une erreur de connectin
                 if(result.equals(1)){
                     cancel(true);
                     btn_level_write.setVisibility(View.INVISIBLE);
                 }
+                //connection OK
                 else{
                     client.ConnectTo(ip,Integer.valueOf(rack), Integer.valueOf(slot));
                     isRunning=true;
@@ -422,6 +455,7 @@ public class AutomateRegulation extends AppCompatActivity {
     }
 
     public void onClickLiquideManager(View v) {
+
         ViewGroup parent;
         View view;
         switch (v.getId()) {
@@ -460,6 +494,7 @@ public class AutomateRegulation extends AppCompatActivity {
                 writeDBB2.setBitAt(2, ch_level_dbb2_5.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb2_6:
+                InitiationComposantsWrite();
                 writeDBB2.setBitAt(1, ch_level_dbb2_6.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb2_7:
@@ -487,8 +522,9 @@ public class AutomateRegulation extends AppCompatActivity {
                 writeDBB3.setBitAt(1, ch_level_dbb3_6.isChecked() ? 1 : 0);
                 break;
             case R.id.ch_level_dbb3_7:
-                writeDBB3.setBitAt(0, ch_level_dbb3_7.isChecked() ? 1 : 0);
+                writeDBB3.setBitAt(0, ch_level_dbb3_7.isChecked() ? 1 : 0   );
                 break;
+
         }
     }
 
@@ -544,13 +580,13 @@ public class AutomateRegulation extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(AutomateRegulation.this, "changement 24 ", Toast.LENGTH_SHORT).show();
                 try {
                     writeDBW24.setWordAt(0, Integer.parseInt(charSequence.toString()));
-                    Toast.makeText(AutomateRegulation.this,charSequence.toString() , Toast.LENGTH_SHORT).show();
-
-                } catch (NumberFormatException nFE) {
-                    nFE.printStackTrace();
+                } catch (NumberFormatException error) {
+                    error.printStackTrace();
                 }
+
             }
 
             @Override
@@ -566,6 +602,8 @@ public class AutomateRegulation extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(AutomateRegulation.this, "changement 26", Toast.LENGTH_SHORT).show();
+
                 try {
                     writeDBW26.setWordAt(0, Integer.parseInt(charSequence.toString()));
                 } catch (NumberFormatException error) {
@@ -587,16 +625,17 @@ public class AutomateRegulation extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    writeDBW28.setWordAt(0, Integer.parseInt(charSequence.toString()));
+                    writeDBW28.setWriteBool(0, Integer.parseInt(charSequence.toString()));
                 } catch (NumberFormatException error) {
                     error.printStackTrace();
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
 
             }
+
         });
         et_level_dbw30.addTextChangedListener(new TextWatcher() {
             @Override

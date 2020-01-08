@@ -17,7 +17,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static  final String DATABASE_NAME = "ProjetAutomate.db";
     private static final String TABLE_NAME = "Database_user";
     private static final String COL_ID = "ID";
-    private static final String COL_LOGIN = "LOGIN";
+    private static final String COL_NOM = "NOM";
+    private static final String COL_PRENOM = "PRENOM";
     private static final String COL_PASSWORD = "PASSWORD";
     private static final String COL_EMAIL = "EMAIL";
     private static final String COL_STATUS = "STATUS";
@@ -36,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,LOGIN text, PASSWORD text, EMAIL text, STATUS text, ECRITURE boolean)" );
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NOM text, PRENOM text, PASSWORD text, EMAIL text, STATUS text, ECRITURE boolean)" );
 
     }
 
@@ -134,10 +135,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //insert contact
-    public boolean insertContact(String LOGIN, String PASSWORD, String EMAIL, String STATUS, Boolean ECRITURE){
+    public boolean insertContact(String NOM,String PRENOM, String PASSWORD, String EMAIL, String STATUS, Boolean ECRITURE){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("LOGIN", LOGIN);
+        contentValues.put("NOM", NOM);
+        contentValues.put("PRENOM",PRENOM);
         contentValues.put("PASSWORD", PASSWORD);
         contentValues.put("EMAIL", EMAIL);
         contentValues.put("STATUS", STATUS);

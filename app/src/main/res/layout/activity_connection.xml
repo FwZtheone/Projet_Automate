@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:inputType="text"
-        android:text="chiara@hotmail.com"
+        android:text="root@hotmail.com"
         android:maxLines="1"
         />
 

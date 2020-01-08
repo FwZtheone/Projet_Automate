@@ -6,4 +6,6 @@
     <color name="page_de_garde">#FFCC99</color>
     <color name="red">#d50000</color>
     <color name="green">#00C853</color>
+    <color name="On">#d50000</color>
+    <color name="Off">#00C853</color>
 </resources>

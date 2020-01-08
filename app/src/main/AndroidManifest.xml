@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AutomateRegulation" />
+        <activity android:name=".Comprime.AutomateComprimeRead"></activity>
+        <activity android:name=".Regulation.AutomatRegulationWrite" />
+        <activity android:name=".Regulation.AutomateRegulation" />
         <activity android:name=".ShowUser" />
         <activity android:name=".InscriptionROOT" />
         <activity android:name=".UserActivity" />

@@ -6,8 +6,8 @@
     </string>
 
 
-    <string name="On">Activé</string>
-    <string name="Off">Désactivé</string>
+    <string name="On"><font color='greeb'>Activé</font></string>
+    <string name="Off"><font color='red'>Desactivé</font></string>
 
     <string name="Manuel">Manuel</string>
     <string name="Automatique">Automatique</string>

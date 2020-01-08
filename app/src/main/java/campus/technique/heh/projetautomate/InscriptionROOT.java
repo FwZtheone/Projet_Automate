@@ -1,12 +1,12 @@
 package campus.technique.heh.projetautomate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +17,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import campus.technique.heh.projetautomate.sql.DatabaseHelper;
-
-import static campus.technique.heh.projetautomate.InscriptionActivity.getSHA;
 
 public class InscriptionROOT extends AppCompatActivity {
 
@@ -111,9 +109,14 @@ public class InscriptionROOT extends AppCompatActivity {
 
         switch (v.getId()){
             case R.id.valider_superRoot:
-                        //login
+                        //login -->
                         EditText edit_text_login = (EditText) findViewById(R.id.edit_Login_inscription_superRoot);
                         String edit_text_login_string = edit_text_login.getText().toString().toLowerCase();
+                        //prenom
+
+                        EditText edit_text_prenom = (EditText)findViewById(R.id.edit_prenom_inscription_superRoot);
+                        String edit_text_prenom_string = edit_text_prenom.getText().toString().toLowerCase();
+
                         //password
                         EditText edit_text_password  = findViewById(R.id.edit_password_inscription_superRoot);
                         String edit_text_password_string = edit_text_password.getText().toString();
@@ -139,7 +142,7 @@ public class InscriptionROOT extends AppCompatActivity {
                                         Toast.makeText(this, " Inscription réussie ! ", Toast.LENGTH_SHORT).show();
                                         DatabaseHelper mydb = new DatabaseHelper(this);
                                         try{
-                                            mydb.insertContact(edit_text_login_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"SUPERROOT" ,true);
+                                            mydb.insertContact(edit_text_login_string,edit_text_prenom_string, toHexString(getSHA(edit_text_password_string)),edit_text_email_string,"SUPERROOT" ,true);
                                             finish();
                                             Intent connection  = new Intent(this,ConnectionActivity.class);
                                             startActivity(connection);
